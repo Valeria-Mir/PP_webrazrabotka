@@ -1,0 +1,706 @@
+<template>
+  <div class="site-full">
+    <CustomCursor />
+
+    <AppHeader
+        :menuOpen="menuOpen"
+        @toggleMenu="toggleMenu"
+        @showManagers="showManagersModal = true"
+        @showOrder="showOrderModal = true"
+        @scrollToCompany="scrollToCompany"
+    />
+
+    <MobileMenu :menuOpen="menuOpen" @close="closeMenu" />
+
+    <Breadcrumbs currentPage="SMM продвижение" />
+
+    <!-- ОСНОВНОЙ КОНТЕНТ СТРАНИЦЫ SMM -->
+    <div class="smm-page-content">
+      <div class="container">
+
+        <!-- HERO БЛОК -->
+        <div class="smm-hero">
+          <div class="hero-image">
+            <!-- Уберите эту секцию или замените на существующее изображение -->
+            <video class="hero-video" autoplay loop muted playsinline>
+              <source src="@/assets/3d.mp4" type="video/mp4">
+              Ваш браузер не поддерживает видео
+            </video>
+          </div>
+          <div class="hero-text">
+            <h1>Эффективное SMM-продвижение <span>бизнеса в Нижнем Новгороде</span></h1>
+            <ul>
+              <li>Не просто ведем соцсети в Нижнем Новгороде, а настраиваем регулярный приток реальных клиентов.</li>
+              <li>Работаем в рамках Вашего рекламного бюджета.</li>
+              <li>Результат продвижения в виде увеличения продаж уже в первые месяцы.</li>
+            </ul>
+            <button class="styleBtn" @click="showOrderModal = true"><span>Заказать СММ продвижение</span> компании в социальных сетях</button>
+          </div>
+        </div>
+
+        <!-- ПРОДВИЖЕНИЕ СОЦСЕТЕЙ -->
+        <div class="promotion-smm">
+          <h2 class="titleSmm">Продвижение соцсетей в Нижнем Новгороде от компании <span>«Вебразработка»</span></h2>
+          <p>Социальные сети – это эффективный инструмент продвижения бизнеса, увеличения количества продаж, повышения узнаваемости компании, создания положительного имиджа, привлечения трафика на сайт и подписчиков в группу/интстаграм-аккаунт.</p>
+
+          <!-- Оформление -->
+          <div class="service-block">
+            <h3><strong>Оформление сообщества/аккаунта в ВКонтакте, Instagram, Facebook.</strong></h3>
+            <p><strong>Что входит в стоимость:</strong></p>
+            <ul>
+              <li>Составление портрета ЦА;</li>
+              <li>Анализ конкурентов;</li>
+              <li>Визуальное оформление: добавление описания компании, создание аватара, обложки, карточек для товаров, обсуждений, фотоальбомов, добавление видео, виджетов, меню и т.п.</li>
+              <li>Заполнение контактной информации;</li>
+              <li>Написание контент-плана.</li>
+              <li>Написание двух постов.</li>
+            </ul>
+            <p class="price"><strong>Цена: 15 000 руб. за 1 соц. сеть.</strong></p>
+          </div>
+
+          <!-- Ведение -->
+          <div class="service-block">
+            <h3><strong>Ведение.</strong></h3>
+            <p><strong>Что входит в стоимость:</strong></p>
+            <ul>
+              <li>Модерация (работа с комментариями, спамом, негативом, отзывами).</li>
+              <li>Написание и публикация от 2 постов в неделю (8-9 в месяц)</li>
+              <li>Составление рекомендаций, генерация идей относительно контента, стратегии ведения групп/аккаунтов в соцсетях;</li>
+              <li>Поддержание, стимулирование активности в группах/аккаунтах в соц. сетях.</li>
+            </ul>
+            <p class="price"><strong>Цена: от 10 000 руб. в месяц.</strong></p>
+          </div>
+
+          <!-- Таргетированная реклама -->
+          <div class="service-block">
+            <h3><strong>Таргетированная реклама в ВКонтакте, Instagram, Facebook.</strong></h3>
+            <p><strong>Что входит в стоимость:</strong></p>
+            <ul>
+              <li>Анализ группы/сайта, анализ конкурентов;</li>
+              <li>Разработка стратегии рекламы;</li>
+              <li>Построение портрета ЦА на основе брифа, Сбор ЦА;</li>
+              <li>Создание креативов разных форматов;</li>
+              <li>А/В тестирование;</li>
+              <li>Анализ тестовой рекламной кампании;</li>
+              <li>Выявление успешных объявлений и аудиторий;</li>
+              <li>Регулярный мониторинг объявлений;</li>
+              <li>Обновление креативов по мере необходимости;</li>
+              <li>Отчеты.</li>
+            </ul>
+            <p class="price"><strong>Составление и ведение рекламы: 1 соц. сеть – 15 000 руб. первый месяц, далее 10 000р.</strong></p>
+            <p class="price"><strong>Рекомендованный Баланс от 10 000р.</strong></p>
+          </div>
+        </div>
+
+        <!-- ЧТО ТАКОЕ SMM -->
+        <div class="about-smm">
+          <h3 class="titleSmm">Что такое SMM продвижение</h3>
+          <p>Это быстрый способ рассказать целевой аудитории о своем продукте или пакете услуг с помощью постов и другого контента. Также, это отличный способ маркетинга и рекламы, способствующий привлечению целевой аудитории в свой бизнес и увеличивающий продажи.<br> Основные каналы SMM – размещение рекламных постов: Vk, YT, Fb, OK, Inst.</p>
+
+          <p class="razdAS">Ключевые задачи SMM:</p>
+          <div class="tasks-grid">
+            <div class="task-card">
+              <div class="task-name">Создание и повышение имиджа компании</div>
+              <ul>
+                <li>аудит, разработка и реализация комплексной стратегии рекламы;</li>
+                <li>выделение среди конкурентов;</li>
+                <li>посты с анонсированием скидок на продажах, акций, конкурсов;</li>
+                <li>привлечение к сотрудничеству блогеров (выбираем ведущих блогеров региона с Вашей целевой аудиторией).</li>
+              </ul>
+            </div>
+            <div class="task-card">
+              <div class="task-name">Увеличение продаж компании</div>
+              <ul>
+                <li>создание тематических постов;</li>
+                <li>публикация рекламных постов в рамках маркетингового плана;</li>
+                <li>построение каналов привлечения клиентов в социальных сетях на основе проведенного ранее аудита;</li>
+                <li>реклама через блогеров</li>
+              </ul>
+            </div>
+            <div class="task-card">
+              <div class="task-name">Удержание и развитие аудитории</div>
+              <ul>
+                <li>анализ целевой аудитории, разработка и реализация привлекающей SMM-стратегии и контент-плана на имеющихся каналах привлечения клиентов, проработка постов;</li>
+                <li>увеличение эффективности за счет использования пакета дополнительных каналов коммуникаций;</li>
+                <li>анализ эффективности используемых методов, доработка и реализация новых идей</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- ЭТАПЫ SMM -->
+        <div class="stages-smm">
+          <h2 class="titleSmm">Этапы SMM</h2>
+          <p class="txtBoldSmm">Как мы будем работать, если Вы направите заявку в компанию «Вебразработка»:</p>
+          <div class="stages-tabs">
+            <div class="stages-list">
+              <div class="stage-item" v-for="(stage, idx) in stages" :key="idx" :class="{ active: activeStage === idx }" @click="activeStage = idx">
+                <span>{{ idx + 1 }}</span> этап
+              </div>
+            </div>
+            <div class="stage-content">
+              <p>{{ stages[activeStage]?.content }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ПРЕИМУЩЕСТВА -->
+        <div class="advantages-smm">
+          <h3 class="titleSmm">Преимущества «Вебразработка»</h3>
+          <p class="txtBoldSmm">Несколько слов о том, почему мы входим в категорию лучших SMM агентств в Нижнем Новгороде:</p>
+          <div class="advantages-grid-smm">
+            <div class="advantage-smm" v-for="(adv, idx) in advantagesSmm" :key="idx">
+              <div class="num">{{ String(idx + 1).padStart(2, '0') }}</div>
+              <div class="name">{{ adv.name }}</div>
+              <p>{{ adv.desc }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ФОРМА ЗАЯВКИ -->
+        <div class="request-form">
+          <h3 class="titleReq">Оформить заявку на услугу</h3>
+          <p>Интернет агентство «Вебразработка» предлагает качественное СММ по демократичным ценам. Чтобы заказать раскрутку Вашей группы – оставьте заявку на необходимый пакет услуг, позвонив нам по телефону или воспользуйтесь специальной формой на нашем сайте.</p>
+          <div class="form-block">
+            <form @submit.prevent="submitOrderForm">
+              <p>Не упустите возможность и закажите услугу прямо сейчас!</p>
+              <div class="form-row">
+                <input type="text" v-model="requestForm.name" placeholder="Имя *" required>
+                <input type="tel" v-model="requestForm.phone" placeholder="Телефон *" required>
+              </div>
+              <p class="zv">* - поля, обязательные для заполнения</p>
+              <label class="checkbox-label">
+                <input type="checkbox" v-model="requestForm.agree" required>
+                <span>Согласие на обработку персональных данных с целью обработки запроса. С условиями <a href="/politika-v-otnoshenii-obrabotki-personalnykh-dannykh">Политики</a> и <a href="/soglasie-posetitelya-saita-na-obrabotku-personalnykh-dannykh">Согласия</a> ознакомлен.</span>
+              </label>
+              <button type="submit" class="submit-btn" :disabled="requestLoading">ОТПРАВИТЬ ЗАЯВКУ</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- ПОПУЛЯРНЫЕ ВОПРОСЫ -->
+        <div class="popular-questions">
+          <h4 class="titleSmm">Популярные вопросы</h4>
+          <div class="questions-wrap">
+            <div class="question-item" v-for="(q, idx) in questions" :key="idx">
+              <div class="question-title" @click="toggleQuestion(idx)">
+                <p>{{ q.question }}</p>
+                <div class="dec" :class="{ open: openQuestion === idx }">▼</div>
+              </div>
+              <div class="question-answer" v-if="openQuestion === idx">
+                <div v-html="q.answer"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <AppFooter />
+
+    <Modals
+        :showOrderModal="showOrderModal"
+        :showManagersModal="showManagersModal"
+        orderTitle="Заявка на SMM продвижение"
+        :showSocialField="true"
+        @update:showOrderModal="showOrderModal = $event"
+        @update:showManagersModal="showManagersModal = $event"
+        @orderSubmitted="handleNotification"
+    />
+
+    <ScrollTop />
+    <Notification :show="notification.show" :message="notification.message" />
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted, onUnmounted } from 'vue'
+import CustomCursor from './CustomCursor.vue'
+import AppHeader from './AppHeader.vue'
+import MobileMenu from './MobileMenu.vue'
+import Breadcrumbs from './Breadcrumbs.vue'
+import AppFooter from './AppFooter.vue'
+import Modals from './Modals.vue'
+import ScrollTop from './ScrollTop.vue'
+import Notification from './Notification.vue'
+
+const showOrderModal = ref(false)
+const showManagersModal = ref(false)
+const menuOpen = ref(false)
+const notification = ref({ show: false, message: '' })
+const activeStage = ref(4)
+const openQuestion = ref(null)
+const requestLoading = ref(false)
+const requestForm = ref({ name: '', phone: '', agree: false })
+
+let starInterval
+
+const stages = [
+  { content: 'Аудит. Проводим анализ Вашего бизнеса с точки зрения возможностей маркетинга.' },
+  { content: 'Осуществляем анализ конкурентной среды. Аудит конкурентов позволяет понять, какие решения действительно работают в Вашем сегменте бизнеса.' },
+  { content: 'Ставим задачи SMM, составляем контент-план.' },
+  { content: 'Определяем пакет инструментов, которые лучше всего использовать.' },
+  { content: 'Разрабатываем стратегию размещения постов и дизайнерского контента, запускаем таргетированную рекламу на основе проведенного аудита. Выделяем компанию среди конкурентов.' },
+  { content: 'Делаем анализ запущенной концепции, дорабатываем и улучшаем качество контента, публикуем рекламные посты, осуществляем дизайнерское оформление соц.сетей и направляем заявки на сотрудничество с ведущими блогерами.' }
+]
+
+const advantagesSmm = [
+  { name: 'Более 17 лет на рынке', desc: 'Грамотно подходим к аудиту, эффективно продвигаем компанию в социальных сетях и выделяем ее среди конкурентов.' },
+  { name: 'Многопрофильная ориентация', desc: 'Мы работали с абсолютно разными бизнесами в социальных сетях и везде были успешны.' },
+  { name: 'Индивидуальный подход', desc: 'Всегда внимательно изучаем текущие потребности и предлагаем пакет лучших решений. Работаем на результат.' },
+  { name: 'Дружная команда опытных специалистов', desc: 'В штат сотрудников компании входят программисты, специалисты по маркетингу, дизайнеры, блогеры.' }
+]
+
+const questions = [
+  {
+    question: 'Каких целей можно достигнуть с помощью SMM?',
+    answer: '<p>Зная и понимая задачи, которые можно решить через продвижение в соцсетях, можно разработать успешную SMM-стратегию. Поэтому, прежде чем заказать SMM продвижение в Нижнем Новгороде необходимо определиться с его целями.</p><p><strong>Блогеры и владельцы бизнесов в социальных сетях чаще всего ставят следующие цели:</strong></p><ul><li>аудит запросов целевой аудитории;</li><li>увеличение продаж;</li><li>улучшение репутации;</li><li>общение с аудиторией;</li><li>получение трафика на сайт.</li></ul><p>Можно ставить одновременно несколько целей: поднять продажи и улучшить репутацию и т.д.</p>'
+  },
+  {
+    question: 'Какие факторы влияют на успешность SMM-продвижения в социальных сетях?',
+    answer: '<p>Для успешного СММ-продвижения в социальных сетях необходимо сочетание следующих факторов:</p><ul><li>грамотный подход к созданию стратегии;</li><li>умение сотрудников Вашего бизнеса общаться с клиентом и доносить необходимую информацию;</li><li>одновременное использование нескольких платформ: ВК, Ютуб, Инстаграм и т.д. Чем больше клиентов в социальных сетях – тем лучше для продвижения;</li><li>наличие сотрудников, занимающихся SMM. Чтобы добиться результата в продвижении, желательно нанять фрилансеров или специальную команду, которая будет заниматься исключительно SMM: проводить аудит, продавать товары и т.д.;</li><li>осуществление регулярного анализа окупаемости продвижения социальных сетей. Анализируя продвижение соц.сетей Вы сможете увеличить эффективность маркетингового плана.</li></ul>'
+  }
+]
+
+const toggleMenu = () => {
+  menuOpen.value = !menuOpen.value
+  document.body.style.overflow = menuOpen.value ? 'hidden' : ''
+}
+
+const closeMenu = () => {
+  menuOpen.value = false
+  document.body.style.overflow = ''
+}
+
+const scrollToCompany = () => {
+  const element = document.querySelector('.advantages-smm')
+  if (element) element.scrollIntoView({ behavior: 'smooth' })
+}
+
+const toggleQuestion = (idx) => {
+  openQuestion.value = openQuestion.value === idx ? null : idx
+}
+
+const submitOrderForm = async () => {
+  if (!requestForm.value.name || !requestForm.value.phone || !requestForm.value.agree) {
+    handleNotification({ message: 'Заполните все обязательные поля!' })
+    return
+  }
+  requestLoading.value = true
+  await new Promise(resolve => setTimeout(resolve, 1500))
+  requestLoading.value = false
+  handleNotification({ message: 'Заявка отправлена! Менеджер свяжется с вами.' })
+  requestForm.value = { name: '', phone: '', agree: false }
+}
+
+const handleNotification = (data) => {
+  notification.value = { show: true, message: data.message }
+  setTimeout(() => { notification.value.show = false }, 3000)
+}
+
+const createStars = () => {
+  starInterval = setInterval(() => {
+    const star = document.createElement('div')
+    star.className = 'star'
+    star.style.left = Math.random() * 100 + '%'
+    star.style.top = Math.random() * 100 + '%'
+    star.style.animationDuration = Math.random() * 3 + 2 + 's'
+    document.body.appendChild(star)
+    setTimeout(() => star.remove(), 5000)
+  }, 3000)
+}
+
+onMounted(() => {
+  createStars()
+})
+
+onUnmounted(() => {
+  if (starInterval) clearInterval(starInterval)
+})
+</script>
+
+<style scoped>
+/* СТИЛИ ДЛЯ SMM СТРАНИЦЫ */
+.smm-page-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 30px;
+}
+
+/* Hero блок */
+.smm-hero {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 60px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.hero-image {
+  flex: 1;
+  min-width: 280px;
+}
+.hero-placeholder {
+  background: linear-gradient(135deg, #fef5f5, #f0f0f0);
+  border-radius: 20px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  color: #cc0000;
+}
+.hero-text {
+  flex: 1;
+}
+.hero-text h1 {
+  font-size: 36px;
+  color: #000;
+  margin-bottom: 20px;
+}
+.hero-text h1 span {
+  color: #cc0000;
+}
+.hero-text ul {
+  list-style: none;
+  padding: 0;
+}
+.hero-text ul li {
+  padding-left: 25px;
+  position: relative;
+  margin-bottom: 12px;
+  color: #444;
+}
+.hero-text ul li:before {
+  content: '✓';
+  color: #cc0000;
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+.styleBtn {
+  background: #cc0000;
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 40px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 20px;
+  transition: all 0.3s;
+}
+.styleBtn:hover {
+  background: #ff1a1a;
+  transform: translateY(-2px);
+}
+
+/* Заголовки */
+.titleSmm {
+  font-size: 32px;
+  color: #000;
+  margin: 40px 0 20px;
+}
+.titleSmm span {
+  color: #cc0000;
+}
+
+/* Блоки услуг */
+.service-block {
+  background: #f8f8f8;
+  border-radius: 20px;
+  padding: 25px;
+  margin-bottom: 30px;
+}
+.service-block h3 {
+  color: #cc0000;
+  margin-bottom: 15px;
+}
+.service-block ul {
+  margin: 15px 0;
+  padding-left: 20px;
+}
+.service-block li {
+  color: #444;
+  margin-bottom: 8px;
+}
+.price {
+  color: #cc0000;
+  font-size: 18px;
+  margin-top: 15px;
+}
+
+/* Сетка задач */
+.tasks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin: 30px 0;
+}
+.task-card {
+  background: #f8f8f8;
+  border-radius: 16px;
+  padding: 20px;
+}
+.task-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #cc0000;
+  margin-bottom: 15px;
+}
+.task-card ul {
+  padding-left: 20px;
+}
+.task-card li {
+  color: #444;
+  margin-bottom: 8px;
+}
+
+/* Этапы */
+.stages-tabs {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin: 30px 0;
+}
+.stages-list {
+  flex: 1;
+  min-width: 200px;
+}
+.stage-item {
+  padding: 12px 20px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+  transition: all 0.3s;
+}
+.stage-item.active {
+  color: #cc0000;
+  font-weight: bold;
+  border-bottom-color: #cc0000;
+}
+.stage-item:hover {
+  color: #cc0000;
+  padding-left: 30px;
+}
+.stage-content {
+  flex: 2;
+  background: #f8f8f8;
+  padding: 20px;
+  border-radius: 16px;
+  color: #444;
+}
+
+/* Преимущества */
+.advantages-grid-smm {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  margin: 30px 0;
+}
+.advantage-smm {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 25px;
+  border: 1px solid #eee;
+  transition: all 0.3s;
+}
+.advantage-smm:hover {
+  transform: translateY(-5px);
+  border-color: #cc0000;
+  box-shadow: 0 10px 30px rgba(204,0,0,0.1);
+}
+.advantage-smm .num {
+  font-size: 32px;
+  font-weight: bold;
+  color: #cc0000;
+  margin-bottom: 15px;
+}
+.advantage-smm .name {
+  font-size: 20px;
+  font-weight: bold;
+  color: #000;
+  margin-bottom: 10px;
+}
+.advantage-smm p {
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Форма */
+.request-form {
+  background: linear-gradient(135deg, #fef5f5, #ffffff);
+  border-radius: 24px;
+  padding: 40px;
+  margin: 50px 0;
+}
+.titleReq {
+  font-size: 28px;
+  color: #000;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.form-block form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+.form-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+.form-row input {
+  flex: 1;
+  padding: 14px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-size: 14px;
+}
+.zv {
+  font-size: 12px;
+  color: #999;
+  margin: 10px 0;
+}
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 20px 0;
+  cursor: pointer;
+}
+.checkbox-label span {
+  font-size: 12px;
+  color: #666;
+}
+.checkbox-label a {
+  color: #cc0000;
+}
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  background: #cc0000;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+.submit-btn:hover {
+  background: #ff1a1a;
+  transform: translateY(-2px);
+}
+
+/* Вопросы */
+.popular-questions {
+  margin: 50px 0;
+}
+.question-item {
+  border-bottom: 1px solid #eee;
+}
+.question-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.question-title:hover {
+  background: rgba(204,0,0,0.05);
+}
+.dec {
+  transition: transform 0.3s;
+  font-size: 14px;
+  color: #cc0000;
+}
+.dec.open {
+  transform: rotate(180deg);
+}
+.question-answer {
+  padding: 0 20px 20px 20px;
+  color: #666;
+  line-height: 1.6;
+}
+.question-answer ul {
+  padding-left: 20px;
+  margin: 10px 0;
+}
+
+/* Адаптив */
+@media (max-width: 768px) {
+  .smm-hero {
+    flex-direction: column;
+  }
+  .advantages-grid-smm {
+    grid-template-columns: 1fr;
+  }
+  .hero-text h1 {
+    font-size: 28px;
+  }
+  .titleSmm {
+    font-size: 24px;
+  }
+  .stages-tabs {
+    flex-direction: column;
+  }
+  .form-row {
+    flex-direction: column;
+  }
+}
+
+.star {
+  position: fixed;
+  width: 2px;
+  height: 2px;
+  background: #cc0000;
+  border-radius: 50%;
+  opacity: 0;
+  animation: twinkle 3s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0; }
+  50% { opacity: 0.5; transform: scale(1.5); }
+  100% { opacity: 0; }
+}
+.smm-hero {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 60px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.hero-image {
+  flex: 1;
+  min-width: 280px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.hero-video {
+  width: 100%;
+  height: auto;
+  min-height: 300px;
+  object-fit: cover;
+  display: block;
+  border-radius: 20px;
+  transition: transform 0.3s ease;
+}
+
+.hero-image:hover .hero-video {
+  transform: scale(1.02);
+}
+
+/* Если видео не воспроизводится автоматически */
+.hero-video {
+  pointer-events: none;
+}
+
+.hero-text {
+  flex: 1;
+}
+</style>
