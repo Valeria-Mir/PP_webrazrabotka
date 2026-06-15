@@ -23,7 +23,7 @@
           <div class="hero-image">
             <!-- Уберите эту секцию или замените на существующее изображение -->
             <video class="hero-video" autoplay loop muted playsinline>
-              <source src="@/assets/3d.mp4" type="video/mp4">
+              <source src="/assets/3d.mp4" type="video/mp4">
               Ваш браузер не поддерживает видео
             </video>
           </div>

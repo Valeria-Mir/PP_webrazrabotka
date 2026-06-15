@@ -3,7 +3,7 @@
     <div class="footer-inner">
       <div class="footer-logo">
         <div class="logo-icon pulse">
-          <img src="@/assets/logo.png" alt="logo">
+          <img src="/assets/logo.png" alt="logo">
         </div>
         <div class="logo-text">
           <span>АГЕНТСТВО ИНТЕРНЕТ-МАРКЕТИНГА</span>

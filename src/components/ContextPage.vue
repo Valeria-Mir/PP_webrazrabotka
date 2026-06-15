@@ -18,14 +18,14 @@
       <div class="offers-grid">
         <div class="offer-card-3d" @mousemove="handleCardMove($event, 0)" @mouseleave="resetCard(0)">
           <div class="offer-card-inner" ref="cardInner0">
-            <div class="offer-icon"> <img src="@/assets/mechok_jenezn.svg" alt="стрелка" class="svg-icon"></div>
+            <div class="offer-icon"> <img src="/assets/mechok_jenezn.svg" alt="стрелка" class="svg-icon"></div>
             <div class="offer-text">ПРЕДЛОЖЕНИЯ ДЛЯ<br><span>СРЕДНЕГО</span> И <span>МЕЛКОГО</span> БИЗНЕСА</div>
             <button class="offer-btn" @click="showOrderModal = true">→ ОТКРЫТЬ ФОРМУ ВЫБОРА ПРЕДЛОЖЕНИЙ</button>
           </div>
         </div>
         <div class="offer-card-3d" @mousemove="handleCardMove($event, 1)" @mouseleave="resetCard(1)">
           <div class="offer-card-inner" ref="cardInner1">
-            <div class="offer-icon"><img src="@/assets/home.png" alt="бизнес" class="svg-icon"></div>
+            <div class="offer-icon"><img src="/assets/home.png" alt="бизнес" class="svg-icon"></div>
             <div class="offer-text">ПРЕДЛОЖЕНИЯ ДЛЯ<br><span>КРУПНОГО</span> БИЗНЕСА</div>
             <button class="offer-btn" @click="showOrderModal = true">→ ОТКРЫТЬ ФОРМУ ВЫБОРА ПРЕДЛОЖЕНИЙ</button>
           </div>
@@ -35,7 +35,7 @@
 
     <div class="seo-content">
       <div class="info-card glass-card">
-        <div class="info-card-icon"><img src="@/assets/opovechenie.svg" alt="стрелка" class="svg-icon"></div>
+        <div class="info-card-icon"><img src="/assets/opovechenie.svg" alt="стрелка" class="svg-icon"></div>
         <h1>Контекстная реклама</h1>
         <p><strong>Заказать контекстную рекламу</strong> – это значит получить лучший инструмент для привлечения новых
           клиентов. Реклама способствует моментальному увеличению продаж с сайта.</p>
@@ -216,9 +216,9 @@ const processSteps = [
     items: ['отсеиваем ненужные фразы', 'формируем дополнительные объявления', 'осуществляем оптимизацию расходов']
   }
 ]
-import yandexIcon from '@/assets/yandex-ru.svg'
-import googleIcon from '@/assets/google.png'
-import mailIcon from '@/assets/mail.svg'
+import yandexIcon from '/assets/yandex-ru.svg'
+import googleIcon from '/assets/google.png'
+import mailIcon from '/assets/mail.svg'
 
 const platforms = [
   {

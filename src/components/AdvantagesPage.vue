@@ -50,17 +50,17 @@
         </div>
         <div class="features-row">
           <div class="feature-item">
-            <div class="feature-icon"><img src='@/assets/palitra.svg'></div>
+            <div class="feature-icon"><img src='/assets/palitra.svg'></div>
             <div class="feature-title">Эксклюзивность</div>
             <div class="feature-desc">Уникальный дизайн, который не получит больше никто</div>
           </div>
           <div class="feature-item">
-            <div class="feature-icon"><img src='@/assets/money.svg'></div>
+            <div class="feature-icon"><img src='/assets/money.svg'></div>
             <div class="feature-title">Низкая цена</div>
             <div class="feature-desc">Самые минимальные цены за эксклюзивный сайт</div>
           </div>
           <div class="feature-item">
-            <div class="feature-icon"><img src='@/assets/settings-svgrepo-com.svg'></div>
+            <div class="feature-icon"><img src='/assets/settings-svgrepo-com.svg'></div>
             <div class="feature-title">Комплексный подход</div>
             <div class="feature-desc">Все включено в одну сумму</div>
           </div>
@@ -73,7 +73,7 @@
       <div class="container">
         <div class="help-content">
           <div class="help-image">
-            <div class="help-placeholder"><img src='@/assets/ryka.png'></div>
+            <div class="help-placeholder"><img src='/assets/ryka.png'></div>
           </div>
           <div class="help-text">
             <h3>Мы поможем Вам:</h3>
@@ -109,7 +109,7 @@
 
         <div class="showcase-blocks">
           <div class="showcase-block">
-            <div class="block-icon"><img src='@/assets/home.png'></div>
+            <div class="block-icon"><img src='/assets/home.png'></div>
             <h4>Имидж компании</h4>
             <ul>
               <li>Эксклюзивный имиджевый стильный сайт без ляпов и пустых страниц.</li>
@@ -119,7 +119,7 @@
             </ul>
           </div>
           <div class="showcase-block">
-            <div class="block-icon"><img src='@/assets/tsel.svg'></div>
+            <div class="block-icon"><img src='/assets/tsel.svg'></div>
             <h4>Направленность на продажи</h4>
             <ul>
               <li>Ссылки на основные группы товаров.</li>
@@ -129,7 +129,7 @@
             </ul>
           </div>
           <div class="showcase-block">
-            <div class="block-icon"><img src='@/assets/phone.svg'></div>
+            <div class="block-icon"><img src='/assets/phone.svg'></div>
             <h4>Подталкивание к действию</h4>
             <ul>
               <li>Все контакты в шапке сайта и в футере</li>
@@ -279,11 +279,11 @@ const notification = ref({ show: false, message: '' })
 
 let starInterval
 
-import alenaImg from '@/assets/alena_fominykh.jpg'
-import svetlanaImg from '@/assets/svetlana.jpeg'
-import ritaImg from '@/assets/rita.jpg'
-import yuliyaImg from '@/assets/yuliya.png'
-import kristinaImg from '@/assets/kristina.jpg'
+import alenaImg from '/assets/alena_fominykh.jpg'
+import svetlanaImg from '/assets/svetlana.jpeg'
+import ritaImg from '/assets/rita.jpg'
+import yuliyaImg from '/assets/yuliya.png'
+import kristinaImg from '/assets/kristina.jpg'
 
 const managersList = [
   { id: 1, name: 'Алёна', image: alenaImg, phone: '79081670603', phoneFormatted: '+7 (908) 167-06-03', email: 'alena@webrazrabotka.ru', telegram: null },

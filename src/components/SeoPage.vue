@@ -59,7 +59,7 @@
         <div class="offer-card-3d" @mousemove="handleCardMove($event, 0)" @mouseleave="resetCard(0)">
           <div class="offer-card-inner" ref="cardInner0">
             <div class="offer-icon">
-              <img src="@/assets/mechok_jenezn.svg" alt="стрелка" class="svg-icon">
+              <img src="/assets/mechok_jenezn.svg" alt="стрелка" class="svg-icon">
             </div>
             <div class="offer-text">ПРЕДЛОЖЕНИЯ ДЛЯ<br><span>СРЕДНЕГО</span> И <span>МЕЛКОГО</span> БИЗНЕСА</div>
             <button class="offer-btn" @click="showOrderModal = true">→ ОТКРЫТЬ ФОРМУ</button>
@@ -68,7 +68,7 @@
         <div class="offer-card-3d" @mousemove="handleCardMove($event, 1)" @mouseleave="resetCard(1)">
           <div class="offer-card-inner" ref="cardInner1">
             <div class="offer-icon">
-              <img src="@/assets/home.png" alt="бизнес" class="svg-icon">
+              <img src="/assets/home.png" alt="бизнес" class="svg-icon">
             </div>
             <div class="offer-text">ПРЕДЛОЖЕНИЯ ДЛЯ<br><span>КРУПНОГО</span> БИЗНЕСА</div>
             <button class="offer-btn" @click="showOrderModal = true">→ ОТКРЫТЬ ФОРМУ</button>
@@ -80,7 +80,7 @@
     <!-- ОСНОВНОЙ КОНТЕНТ -->
     <div class="seo-content">
       <div class="info-card glass-card">
-        <div class="info-card-icon"><img src="@/assets/strelochka.png" alt="бизнес" ></div>
+        <div class="info-card-icon"><img src="/assets/strelochka.png" alt="бизнес" ></div>
         <h3>Что такое СЕО оптимизация?</h3>
         <p>SEO — комплексное развитие сайта и его продвижение для поднятия на одну из топовых позиций в выдаче поисковиков.</p>
         <p>СЕО-оптимизация в тандеме с Яндекс рекламой работает лучше, позволяя сайту выходить на более высокие позиции.</p>
@@ -238,10 +238,10 @@ import Modals from '@/components/Modals.vue'
 import ScrollTop from '@/components/ScrollTop.vue'
 import Notification from '@/components/Notification.vue'
 
-import chapockaIcon from '@/assets/chapocka.png'
-import molniaIcon from '@/assets/strelochka.png'
-import moneyIcon from '@/assets/person.svg'
-import palitraIcon from '@/assets/molnia.svg'
+import chapockaIcon from '/assets/chapocka.png'
+import molniaIcon from '/assets/strelochka.png'
+import moneyIcon from '/assets/person.svg'
+import palitraIcon from '/assets/molnia.svg'
 
 const showOrderModal = ref(false)
 const showManagersModal = ref(false)
@@ -305,12 +305,12 @@ const packages = [
   }
 ]
 
-import ravnovesieImg from '@/assets/Ravnovesie.jpg'
-import zsClinikImg from '@/assets/ZSclinik.jpg'
-import prokrepImg from '@/assets/Prokrep_NN.jpg'
-import beregImg from '@/assets/BeregNN.jpg'
-import avtoImg from '@/assets/Avtocarmarket.jpg'
-import eirgazImg from '@/assets/Eirgaz.jpg'
+import ravnovesieImg from '/assets/Ravnovesie.jpg'
+import zsClinikImg from '/assets/ZSclinik.jpg'
+import prokrepImg from '/assets/Prokrep_NN.jpg'
+import beregImg from '/assets/BeregNN.jpg'
+import avtoImg from '/assets/Avtocarmarket.jpg'
+import eirgazImg from '/assets/Eirgaz.jpg'
 
 const casesList = ref([
   {

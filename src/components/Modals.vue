@@ -55,11 +55,11 @@
 import { ref } from 'vue'
 
 // Импортируем фото менеджеров из папки assets
-import alenaImg from '@/assets/alena_fominykh.jpg'
-import svetlanaImg from '@/assets/svetlana.jpeg'
-import ritaImg from '@/assets/rita.jpg'
-import yuliyaImg from '@/assets/yuliya.png'
-import kristinaImg from '@/assets/kristina.jpg'
+import alenaImg from '/assets/alena_fominykh.jpg'
+import svetlanaImg from '/assets/svetlana.jpeg'
+import ritaImg from '/assets/rita.jpg'
+import yuliyaImg from '/assets/yuliya.png'
+import kristinaImg from '/assets/kristina.jpg'
 
 const props = defineProps({
   showOrderModal: Boolean,

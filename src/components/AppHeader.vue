@@ -27,7 +27,7 @@
       <div class="header-bottom-inner">
         <div class="logo" data-glow>
           <div class="logo-icon pulse">
-            <img src="@/assets/logo.png" alt="logo">
+            <img src="/assets/logo.png" alt="logo">
           </div>
           <div class="logo-text">
             <span>АГЕНТСТВО ИНТЕРНЕТ-МАРКЕТИНГА</span>
