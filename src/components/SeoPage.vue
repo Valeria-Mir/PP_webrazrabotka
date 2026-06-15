@@ -229,14 +229,14 @@
 
 <script setup>
 import {ref, onMounted, onUnmounted} from 'vue'
-import CustomCursor from '@/components/CustomCursor.vue'
-import AppHeader from '@/components/AppHeader.vue'
-import MobileMenu from '@/components/MobileMenu.vue'
-import Breadcrumbs from '@/components/Breadcrumbs.vue'
-import AppFooter from '@/components/AppFooter.vue'
-import Modals from '@/components/Modals.vue'
-import ScrollTop from '@/components/ScrollTop.vue'
-import Notification from '@/components/Notification.vue'
+import CustomCursor from './CustomCursor.vue'
+import AppHeader from './AppHeader.vue'
+import MobileMenu from './MobileMenu.vue'
+import Breadcrumbs from './Breadcrumbs.vue'
+import AppFooter from './AppFooter.vue'
+import Modals from './Modals.vue'
+import ScrollTop from './ScrollTop.vue'
+import Notification from './Notification.vue'
 
 import chapockaIcon from '/assets/chapocka.png'
 import molniaIcon from '/assets/strelochka.png'
