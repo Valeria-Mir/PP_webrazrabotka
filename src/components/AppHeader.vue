@@ -16,13 +16,10 @@
           <select v-model="selectedCity">
             <option>Нижний Новгород</option>
             <option>Москва</option>
-            <option>Санкт-Петербург</option>
-            <option>Казань</option>
           </select>
         </div>
       </div>
     </div>
-
     <div class="header-bottom">
       <div class="header-bottom-inner">
         <div class="logo" data-glow>

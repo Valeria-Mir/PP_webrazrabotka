@@ -703,4 +703,7 @@ onUnmounted(() => {
 .hero-text {
   flex: 1;
 }
+.header {
+  position: relative !important;
+}
 </style>

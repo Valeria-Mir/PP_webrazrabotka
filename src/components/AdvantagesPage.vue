@@ -1,3 +1,6 @@
+## Полный исправленный AdvantagesPage.vue
+
+```vue
 <template>
   <div class="site-full">
     <CustomCursor />
@@ -50,17 +53,17 @@
         </div>
         <div class="features-row">
           <div class="feature-item">
-            <div class="feature-icon"><img src='/assets/palitra.svg'></div>
+            <div class="feature-icon"><img src='/assets/palitra.svg' alt="Эксклюзивность"></div>
             <div class="feature-title">Эксклюзивность</div>
             <div class="feature-desc">Уникальный дизайн, который не получит больше никто</div>
           </div>
           <div class="feature-item">
-            <div class="feature-icon"><img src='/assets/money.svg'></div>
+            <div class="feature-icon"><img src='/assets/money.svg' alt="Низкая цена"></div>
             <div class="feature-title">Низкая цена</div>
             <div class="feature-desc">Самые минимальные цены за эксклюзивный сайт</div>
           </div>
           <div class="feature-item">
-            <div class="feature-icon"><img src='/assets/settings-svgrepo-com.svg'></div>
+            <div class="feature-icon"><img src='/assets/settings-svgrepo-com.svg' alt="Комплексный подход"></div>
             <div class="feature-title">Комплексный подход</div>
             <div class="feature-desc">Все включено в одну сумму</div>
           </div>
@@ -73,7 +76,7 @@
       <div class="container">
         <div class="help-content">
           <div class="help-image">
-            <div class="help-placeholder"><img src='/assets/ryka.png'></div>
+            <div class="help-placeholder"><img src='/assets/ryka.png' alt="Помощь"></div>
           </div>
           <div class="help-text">
             <h3>Мы поможем Вам:</h3>
@@ -109,7 +112,7 @@
 
         <div class="showcase-blocks">
           <div class="showcase-block">
-            <div class="block-icon"><img src='/assets/home.png'></div>
+            <div class="block-icon"><img src='/assets/home.png' alt="Имидж компании"></div>
             <h4>Имидж компании</h4>
             <ul>
               <li>Эксклюзивный имиджевый стильный сайт без ляпов и пустых страниц.</li>
@@ -119,7 +122,7 @@
             </ul>
           </div>
           <div class="showcase-block">
-            <div class="block-icon"><img src='/assets/tsel.svg'></div>
+            <div class="block-icon"><img src='/assets/tsel.svg' alt="Направленность на продажи"></div>
             <h4>Направленность на продажи</h4>
             <ul>
               <li>Ссылки на основные группы товаров.</li>
@@ -129,7 +132,7 @@
             </ul>
           </div>
           <div class="showcase-block">
-            <div class="block-icon"><img src='/assets/phone.svg'></div>
+            <div class="block-icon"><img src='/assets/phone.svg' alt="Подталкивание к действию"></div>
             <h4>Подталкивание к действию</h4>
             <ul>
               <li>Все контакты в шапке сайта и в футере</li>
@@ -201,10 +204,22 @@
             <button class="offer-btn-adv" @click="showOrderModal = true">заказать →</button>
           </div>
         </div>
+
+        <!-- СПЕЦИАЛЬНОЕ ПРЕДЛОЖЕНИЕ - ИСПРАВЛЕННЫЙ БЛОК -->
         <div class="special-offer glass-card">
-          <p>Только до <span class="date">29 Августа</span>! при заказе 4 блоков - эксклюзивный + витрина + интернет-магазин + 1с интеграция</p>
-          <div class="sale-badge">20% скидка</div>
-          <button class="cta-btn" @click="showOrderModal = true">заказать</button>
+          <div class="special-offer-content">
+            <p class="special-text">
+              Только до <span class="date">29 Августа</span>! при заказе 4 блоков -
+              <span class="highlight">эксклюзивный</span> +
+              <span class="highlight">витрина</span> +
+              <span class="highlight">интернет-магазин</span> +
+              <span class="highlight">1с интеграция</span>
+            </p>
+            <div class="special-offer-actions">
+              <div class="sale-badge">20% скидка</div>
+              <button class="cta-btn special-btn" @click="showOrderModal = true">заказать →</button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -304,9 +319,9 @@ const reasons = [
 
 const offersList = [
   { title: 'Эксклюзивный сайт', desc: 'Только индивидуальный, неповторимый дизайн. Мы гарантируем, что этот дизайн не получит больше никто.', price: '15 000 руб.', sale: null },
-  { title: 'Эксклюзивный + Витрина', desc: 'Витрина это уникальная разработка нашей компании, включающая 3 больших блока инструментов.', price: '15 000 руб. + 30 000 руб.', sale: '/images/razrabotka/5_protcentov_skidka.png' },
-  { title: 'Эксклюзивный + Витрина + Интернет-магазин', desc: 'Функциональный удобный интернет-магазин с неограниченным количеством позиций.', price: '15 000 руб. + 30 000 руб. + 25 000 руб.', sale: '/images/razrabotka/10_protcentov_skidka.png' },
-  { title: 'Интернет магазин + Интеграция 1С', desc: 'Возможность одним кликом перенести 10000 тысяч позиций и более в магазин.', price: '25 000 руб. + 25 000 руб.', sale: '/images/razrabotka/15_protcentov_skidka.png' }
+  { title: 'Эксклюзивный + Витрина', desc: 'Витрина это уникальная разработка нашей компании, включающая 3 больших блока инструментов.', price: '15 000 руб. + 30 000 руб.', sale: null },
+  { title: 'Эксклюзивный + Витрина + Интернет-магазин', desc: 'Функциональный удобный интернет-магазин с неограниченным количеством позиций.', price: '15 000 руб. + 30 000 руб. + 25 000 руб.', sale: null },
+  { title: 'Интернет магазин + Интеграция 1С', desc: 'Возможность одним кликом перенести 10000 тысяч позиций и более в магазин.', price: '25 000 руб. + 25 000 руб.', sale: null }
 ]
 
 const commercialTools = [
@@ -417,8 +432,10 @@ onUnmounted(() => {
 .tech-text { font-size: 20px; font-weight: bold; }
 .features-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 50px; }
 .feature-item { padding: 30px; background: white; border-radius: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); transition: all 0.3s; }
-.feature-item:hover { transform: translateY(-5px); border-color: #cc0000; }
+.feature-item:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(204,0,0,0.1); border: 1px solid rgba(204,0,0,0.1); }
 .feature-icon { font-size: 48px; margin-bottom: 15px; }
+.feature-icon img { width: 48px; height: 48px; object-fit: contain; display: block; margin: 0 auto; transition: transform 0.3s ease; }
+.feature-item:hover .feature-icon img { transform: scale(1.1); }
 .feature-title { font-size: 20px; font-weight: bold; color: #cc0000; margin-bottom: 10px; }
 .feature-desc { color: #666; }
 
@@ -427,6 +444,8 @@ onUnmounted(() => {
 .help-content { display: flex; gap: 50px; align-items: center; flex-wrap: wrap; }
 .help-image { flex: 1; min-width: 200px; }
 .help-placeholder { font-size: 80px; text-align: center; }
+.help-placeholder img { width: 120px; height: 120px; object-fit: contain; display: block; margin: 0 auto; transition: transform 0.3s ease; filter: invert(12%) sepia(95%) saturate(7000%) hue-rotate(0deg) brightness(95%) contrast(110%); }
+.help-placeholder:hover img { transform: scale(1.1); }
 .help-text { flex: 2; }
 .help-text h3 { font-size: 28px; color: #000; margin-bottom: 20px; }
 .help-text ul { list-style: none; }
@@ -447,8 +466,10 @@ onUnmounted(() => {
 .showcase-desc { text-align: center; color: #666; max-width: 800px; margin: 0 auto 40px; }
 .showcase-blocks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-bottom: 40px; }
 .showcase-block { background: white; border-radius: 20px; padding: 25px; border: 1px solid #eee; transition: all 0.3s; }
-.showcase-block:hover { transform: translateY(-5px); border-color: #cc0000; }
+.showcase-block:hover { transform: translateY(-5px); border-color: #cc0000; box-shadow: 0 8px 25px rgba(204,0,0,0.08); }
 .block-icon { font-size: 48px; margin-bottom: 15px; }
+.block-icon img { width: 48px; height: 48px; object-fit: contain; display: block; margin: 0 auto; transition: transform 0.3s ease; }
+.showcase-block:hover .block-icon img { transform: scale(1.1); }
 .showcase-block h4 { font-size: 20px; color: #cc0000; margin-bottom: 15px; }
 .showcase-block ul { list-style: none; }
 .showcase-block li { padding: 8px 0; padding-left: 20px; position: relative; color: #666; }
@@ -481,9 +502,84 @@ onUnmounted(() => {
 .offer-price { font-size: 20px; font-weight: bold; color: #cc0000; margin-bottom: 15px; }
 .offer-btn-adv { background: #cc0000; color: white; border: none; padding: 10px 25px; border-radius: 30px; cursor: pointer; transition: all 0.3s; }
 .offer-btn-adv:hover { background: #ff1a1a; transform: translateY(-2px); }
-.special-offer { padding: 30px; text-align: center; margin-top: 30px; }
-.special-offer .date { color: #cc0000; font-weight: bold; }
-.sale-badge { display: inline-block; background: #cc0000; color: white; padding: 5px 15px; border-radius: 20px; margin: 15px 0; font-weight: bold; }
+
+/* ============================================ */
+/* СПЕЦПРЕДЛОЖЕНИЕ - ИСПРАВЛЕННЫЙ БЛОК */
+/* ============================================ */
+
+.special-offer {
+  padding: 30px 40px;
+  margin-top: 30px;
+  text-align: center;
+  background: linear-gradient(135deg, #fff5f5, #ffffff, #fff0f0);
+  border: 2px solid rgba(204, 0, 0, 0.15);
+  border-radius: 24px;
+}
+
+.special-offer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.special-text {
+  font-size: 18px;
+  color: #333;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.special-text .date {
+  color: #cc0000;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.special-text .highlight {
+  color: #cc0000;
+  font-weight: 600;
+}
+
+.special-offer-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.sale-badge {
+  display: inline-block;
+  background: #cc0000;
+  color: white;
+  padding: 8px 24px;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 18px;
+  animation: pulse 2s ease-in-out infinite;
+  letter-spacing: 0.5px;
+}
+
+.special-btn {
+  background: #cc0000;
+  color: white;
+  border: none;
+  padding: 12px 35px;
+  border-radius: 40px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  transition: all 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.special-btn:hover {
+  background: #ff1a1a;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(204, 0, 0, 0.3);
+}
 
 /* Подарки */
 .gifts-section { padding: 60px 0; background: #f8f8f8; }
@@ -503,56 +599,153 @@ onUnmounted(() => {
 .cta-btn { background: #cc0000; color: white; border: none; padding: 12px 30px; border-radius: 40px; cursor: pointer; font-weight: bold; transition: all 0.3s; }
 .cta-btn:hover { background: #ff1a1a; transform: translateY(-2px); }
 
-@media (max-width: 1000px) {
-  .managers-grid-adv { grid-template-columns: repeat(3, 1fr); }
-  .reasons-grid { grid-template-columns: repeat(2, 1fr); }
-  .offers-grid-adv { grid-template-columns: 1fr; }
-  .gifts-grid { grid-template-columns: 1fr; }
-  .showcase-blocks { grid-template-columns: 1fr; }
+/* ============================================ */
+/* АДАПТИВНЫЕ СТИЛИ */
+/* ============================================ */
+
+/* Планшеты и маленькие ноутбуки */
+@media (max-width: 1024px) {
+  .container { padding: 0 20px; }
+  .section-title { font-size: 30px; margin-bottom: 35px; }
+  .managers-grid-adv { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .reasons-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .features-row { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .showcase-blocks { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .offers-grid-adv { grid-template-columns: 1fr 1fr; gap: 20px; }
+  .gifts-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+  .compare-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
+  .help-section { margin: 40px 20px; padding: 30px; }
+  .low-price-section { margin: 40px 20px; padding: 35px; }
+  .help-content { gap: 30px; }
+  .help-image { flex: 0 0 150px; min-width: 150px; }
+  .help-placeholder img { width: 90px; height: 90px; }
+  .quote-card { padding: 35px; margin: 0 20px; }
+  .special-offer { padding: 25px 30px; }
+  .special-text { font-size: 16px; }
 }
+
+/* Планшеты вертикальные (768-1024px) */
 @media (max-width: 768px) {
-  .managers-grid-adv { grid-template-columns: repeat(2, 1fr); }
-  .reasons-grid { grid-template-columns: 1fr; }
-  .features-row { grid-template-columns: 1fr; }
-  .compare-grid { grid-template-columns: 1fr; }
-  .help-content { flex-direction: column; text-align: center; }
-  .section-title { font-size: 28px; }
-}
-.feature-icon img {
-  width: 48px;
-  height: 48px;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
-  transition: transform 0.3s ease;
+  .container { padding: 0 16px; }
+  .section-title { font-size: 26px; margin-bottom: 30px; }
+  .managers-grid-adv { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+  .manager-card-adv { padding: 18px 15px; }
+  .manager-avatar-adv img { width: 75px; height: 75px; }
+  .manager-name-adv { font-size: 16px; }
+  .reasons-grid { grid-template-columns: 1fr 1fr; gap: 15px; }
+  .features-row { grid-template-columns: 1fr; gap: 15px; margin-top: 30px; }
+  .feature-item { padding: 20px; max-width: 400px; margin: 0 auto; width: 100%; }
+  .feature-icon img { width: 40px; height: 40px; }
+  .feature-title { font-size: 18px; }
+  .showcase-blocks { grid-template-columns: 1fr; gap: 20px; }
+  .showcase-block { padding: 20px; max-width: 500px; margin: 0 auto; width: 100%; }
+  .offers-grid-adv { grid-template-columns: 1fr; gap: 20px; }
+  .offer-card-adv { padding: 25px 20px; max-width: 500px; margin: 0 auto; width: 100%; }
+  .gifts-grid { grid-template-columns: 1fr; gap: 25px; }
+  .gift-col { max-width: 500px; margin: 0 auto; width: 100%; }
+  .compare-grid { grid-template-columns: 1fr; gap: 20px; }
+  .compare-card { padding: 25px 20px; max-width: 500px; margin: 0 auto; width: 100%; }
+  .help-section { margin: 30px 16px; padding: 25px 20px; }
+  .help-content { flex-direction: column; text-align: center; gap: 20px; }
+  .help-image { flex: 0 0 auto; min-width: auto; }
+  .help-placeholder img { width: 80px; height: 80px; }
+  .help-text h3 { font-size: 24px; }
+  .help-text ul { text-align: left; display: inline-block; }
+  .help-text li { text-align: left; }
+  .learn-more { width: 100%; max-width: 300px; }
+  .quote-card { padding: 25px 20px; margin: 0 16px; }
+  .quote-card p { font-size: 17px; }
+  .low-price-section { margin: 30px 16px; padding: 25px 20px; }
+  .free-text { font-size: 16px; }
+  .free-list li { font-size: 14px; }
+  .cta-btn { padding: 10px 24px; font-size: 14px; }
+  .cta-btn.large { padding: 12px 30px; font-size: 16px; }
+  .special-offer { padding: 20px; }
+  .special-text { font-size: 15px; }
+  .special-text .date { font-size: 17px; }
+  .special-offer-actions { flex-direction: column; gap: 15px; width: 100%; }
+  .sale-badge { font-size: 16px; padding: 6px 20px; }
+  .special-btn { width: 100%; max-width: 280px; padding: 12px 20px; font-size: 15px; }
+  .section-title { font-size: 24px; }
+  .hero-subtitle { font-size: 20px; }
+  .hero-description { font-size: 15px; padding: 0 10px; }
+  .tech-text { font-size: 17px; }
+  .advantages-hero { padding: 40px 0; }
+  .managers-section { padding: 40px 0; }
+  .showcase-section { padding: 40px 0; }
+  .why-clients-section { padding: 40px 0; }
+  .economy-section { padding: 40px 0; }
+  .offers-section { padding: 40px 0; }
+  .gifts-section { padding: 40px 0; }
+  .showcase-subtitle { font-size: 22px; }
+  .showcase-desc { font-size: 15px; padding: 0 10px; }
+  .showcase-footer .bold { font-size: 16px; }
+  .reason-number { font-size: 28px; }
+  .reason-title { font-size: 16px; }
+  .reason-desc { font-size: 13px; }
 }
 
-.feature-item:hover .feature-icon img {
-  transform: scale(1.1);
-}
-.help-placeholder img {
-  width: 120px;
-  height: 120px;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
-  transition: transform 0.3s ease;
-  filter: invert(12%) sepia(95%) saturate(7000%) hue-rotate(0deg) brightness(95%) contrast(110%);
-}
-
-.help-placeholder:hover img {
-  transform: scale(1.1);
-}
-.showcase-block .block-icon img {
-  width: 48px;
-  height: 48px;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
-  transition: transform 0.3s ease;
-}
-
-.showcase-block:hover .block-icon img {
-  transform: scale(1.1);
+/* Мобильные телефоны (до 480px) */
+@media (max-width: 480px) {
+  .container { padding: 0 12px; }
+  .section-title { font-size: 20px; margin-bottom: 25px; }
+  .managers-grid-adv { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .manager-card-adv { padding: 15px 10px; }
+  .manager-avatar-adv img { width: 60px; height: 60px; margin-bottom: 10px; }
+  .manager-name-adv { font-size: 14px; }
+  .manager-phone-adv a, .manager-email-adv a, .manager-tg-adv a { font-size: 10px; }
+  .reasons-grid { grid-template-columns: 1fr; gap: 12px; }
+  .reason-card { padding: 18px 15px; }
+  .reason-number { font-size: 24px; }
+  .features-row { gap: 12px; margin-top: 20px; }
+  .feature-item { padding: 15px; }
+  .feature-icon img { width: 32px; height: 32px; }
+  .feature-title { font-size: 16px; }
+  .feature-desc { font-size: 13px; }
+  .showcase-block { padding: 15px; }
+  .block-icon img { width: 36px; height: 36px; }
+  .showcase-block h4 { font-size: 17px; }
+  .showcase-block li { font-size: 13px; padding: 5px 0 5px 16px; }
+  .offer-card-adv { padding: 20px 15px; }
+  .offer-card-adv h3 { font-size: 17px; }
+  .offer-price { font-size: 17px; }
+  .offer-btn-adv { padding: 8px 20px; font-size: 13px; }
+  .compare-card { padding: 20px 15px; }
+  .compare-card h3 { font-size: 20px; }
+  .compare-card li { font-size: 13px; padding: 6px 0; }
+  .help-section { margin: 20px 12px; padding: 20px 15px; }
+  .help-text h3 { font-size: 20px; }
+  .help-text li { font-size: 13px; padding: 6px 0 6px 20px; }
+  .learn-more { font-size: 13px; padding: 8px 20px; }
+  .quote-card { padding: 20px 15px; margin: 0 12px; }
+  .quote-card p { font-size: 15px; }
+  .low-price-section { margin: 20px 12px; padding: 20px 15px; }
+  .free-text { font-size: 14px; }
+  .free-list li { font-size: 13px; padding: 6px 0; }
+  .cta-btn { padding: 8px 18px; font-size: 13px; }
+  .cta-btn.large { padding: 10px 24px; font-size: 14px; }
+  .special-offer { padding: 15px; }
+  .special-text { font-size: 13px; }
+  .special-text .date { font-size: 15px; }
+  .special-text .highlight { display: inline-block; }
+  .special-offer-actions { flex-direction: column; gap: 12px; }
+  .sale-badge { font-size: 14px; padding: 5px 16px; }
+  .special-btn { width: 100%; font-size: 13px; padding: 10px 16px; max-width: 100%; }
+  .gift-col h3 { font-size: 18px; }
+  .gift-col li { font-size: 13px; padding: 6px 0 6px 20px; }
+  .hero-subtitle { font-size: 17px; }
+  .hero-description { font-size: 13px; padding: 0 5px; }
+  .tech-text { font-size: 14px; }
+  .advantages-hero { padding: 30px 0; }
+  .managers-section { padding: 30px 0; }
+  .showcase-section { padding: 30px 0; }
+  .why-clients-section { padding: 30px 0; }
+  .economy-section { padding: 30px 0; }
+  .offers-section { padding: 30px 0; }
+  .gifts-section { padding: 30px 0; }
+  .showcase-subtitle { font-size: 18px; }
+  .showcase-desc { font-size: 13px; padding: 0 5px; }
+  .showcase-footer p { font-size: 13px; }
+  .showcase-footer .bold { font-size: 14px; }
 }
 </style>

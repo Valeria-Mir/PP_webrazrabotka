@@ -6,26 +6,61 @@
       <h3>{{ orderTitle }}</h3>
       <form @submit.prevent="submitOrder">
         <div class="form-group">
-          <input type="text" v-model="orderForm.name" placeholder=" " required>
+          <input
+              type="text"
+              v-model="orderForm.name"
+              placeholder=" "
+              required
+              @blur="validateField('name')"
+              @input="validateField('name')"
+              :class="{ error: errors.name }"
+          >
           <label>Ваше имя *</label>
+          <span class="error-message" v-if="errors.name">{{ errors.name }}</span>
         </div>
+
         <div class="form-group">
-          <input type="tel" v-model="orderForm.phone" placeholder=" " required>
+          <input
+              type="tel"
+              v-model="orderForm.phone"
+              placeholder="+7 (___) ___-__-__"
+              required
+              @blur="validateField('phone')"
+              @input="formatPhone"
+              :class="{ error: errors.phone }"
+          >
           <label>Телефон *</label>
+          <span class="error-message" v-if="errors.phone">{{ errors.phone }}</span>
         </div>
+
         <div class="form-group" v-if="showSiteField">
-          <input type="url" v-model="orderForm.site" placeholder=" ">
+          <input
+              type="url"
+              v-model="orderForm.site"
+              placeholder=" "
+              @blur="validateField('site')"
+              @input="validateField('site')"
+              :class="{ error: errors.site }"
+          >
           <label>Адрес сайта</label>
+          <span class="error-message" v-if="errors.site">{{ errors.site }}</span>
         </div>
+
         <div class="form-group" v-if="showSocialField">
-          <input type="text" v-model="orderForm.social" placeholder=" ">
+          <input
+              type="text"
+              v-model="orderForm.social"
+              placeholder=" "
+          >
           <label>Социальная сеть</label>
         </div>
+
         <label class="checkbox">
           <input type="checkbox" v-model="orderForm.agree" required>
           <span>Согласие на обработку данных</span>
         </label>
-        <button type="submit" class="submit-btn" :disabled="loading">
+
+        <button type="submit" class="submit-btn" :disabled="loading || !isFormValid">
           <span v-if="!loading">Отправить заявку</span>
           <span v-else class="loader"></span>
         </button>
@@ -52,9 +87,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
-// Импортируем фото менеджеров из папки assets
 import alenaImg from '/assets/alena_fominykh.jpg'
 import svetlanaImg from '/assets/svetlana.jpeg'
 import ritaImg from '/assets/rita.jpg'
@@ -82,6 +116,71 @@ const emit = defineEmits(['update:showOrderModal', 'update:showManagersModal', '
 
 const loading = ref(false)
 const orderForm = ref({ name: '', phone: '', site: '', social: '', agree: false })
+const errors = ref({ name: '', phone: '', site: '' })
+
+// Форматирование телефона — оставляем только цифры
+const formatPhone = () => {
+  orderForm.value.phone = orderForm.value.phone.replace(/\D/g, '')
+}
+
+// Валидация полей
+const validateField = (field) => {
+  switch (field) {
+    case 'name':
+      const name = orderForm.value.name.trim()
+      if (!name || name.length < 2) {
+        errors.value.name = 'Имя должно содержать минимум 2 символа'
+      } else if (!/^[а-яА-ЯёЁa-zA-Z\s-]+$/.test(name)) {
+        errors.value.name = 'Имя должно содержать только буквы'
+      } else {
+        errors.value.name = ''
+      }
+      break
+
+    case 'phone':
+      const phoneDigits = orderForm.value.phone.replace(/\D/g, '')
+
+      if (!phoneDigits) {
+        errors.value.phone = 'Введите номер телефона'
+      } else if (!phoneDigits.startsWith('7') && !phoneDigits.startsWith('8')) {
+        errors.value.phone = 'Номер должен начинаться с 8, 7 или +7'
+      } else if (phoneDigits.length !== 11) {
+        errors.value.phone = 'Номер должен содержать ровно 11 цифр'
+      } else {
+        errors.value.phone = ''
+      }
+      break
+
+    case 'site':
+      if (orderForm.value.site && !/^https?:\/\/.+/.test(orderForm.value.site)) {
+        errors.value.site = 'Введите корректный URL (начинается с http:// или https://)'
+      } else {
+        errors.value.site = ''
+      }
+      break
+  }
+}
+
+// Проверка, что форма валидна
+const isFormValid = computed(() => {
+  const nameValid = orderForm.value.name &&
+      orderForm.value.name.trim().length >= 2 &&
+      /^[а-яА-ЯёЁa-zA-Z\s-]+$/.test(orderForm.value.name.trim())
+
+  const phoneDigits = orderForm.value.phone.replace(/\D/g, '')
+  const phoneValid = phoneDigits &&
+      (phoneDigits.startsWith('7') || phoneDigits.startsWith('8')) &&
+      phoneDigits.length === 11
+
+  const agreeValid = orderForm.value.agree
+
+  if (props.showSiteField && orderForm.value.site) {
+    const siteValid = /^https?:\/\/.+/.test(orderForm.value.site)
+    return nameValid && phoneValid && agreeValid && siteValid && !errors.value.name && !errors.value.phone
+  }
+
+  return nameValid && phoneValid && agreeValid && !errors.value.name && !errors.value.phone
+})
 
 const managers = [
   { id: 1, name: 'Алёна', spec: 'Сайты / Поддержка', avatar: alenaImg },
@@ -93,6 +192,7 @@ const managers = [
 
 const closeOrderModal = () => {
   emit('update:showOrderModal', false)
+  errors.value = { name: '', phone: '', site: '' }
 }
 
 const closeManagersModal = () => {
@@ -100,21 +200,36 @@ const closeManagersModal = () => {
 }
 
 const submitOrder = async () => {
-  if (!orderForm.value.name || !orderForm.value.phone || !orderForm.value.agree) {
-    emit('orderSubmitted', {success: false, message: 'Заполните все обязательные поля!'})
+  // Форматируем телефон перед отправкой
+  formatPhone()
+
+  validateField('name')
+  validateField('phone')
+  if (props.showSiteField) validateField('site')
+
+  if (errors.value.name || errors.value.phone || errors.value.site) {
+    emit('orderSubmitted', { success: false, message: 'Исправьте ошибки в форме' })
     return
   }
+
+  if (!orderForm.value.name || !orderForm.value.phone || !orderForm.value.agree) {
+    emit('orderSubmitted', { success: false, message: 'Заполните все обязательные поля!' })
+    return
+  }
+
   loading.value = true
   await new Promise(resolve => setTimeout(resolve, 1500))
   loading.value = false
-  emit('orderSubmitted', {success: true, message: 'Заявка отправлена! Менеджер свяжется с вами.'})
+
+  emit('orderSubmitted', { success: true, message: 'Заявка отправлена! Менеджер свяжется с вами.' })
   closeOrderModal()
-  orderForm.value = {name: '', phone: '', site: '', social: '', agree: false}
+  orderForm.value = { name: '', phone: '', site: '', social: '', agree: false }
+  errors.value = { name: '', phone: '', site: '' }
 }
 
 const selectManager = (manager) => {
   closeManagersModal()
-  emit('orderSubmitted', {success: true, message: `Вы выбрали менеджера ${manager.name}. Специалист свяжется с вами.`})
+  emit('orderSubmitted', { success: true, message: `Вы выбрали менеджера ${manager.name}. Специалист свяжется с вами.` })
 }
 </script>
 
@@ -184,6 +299,10 @@ const selectManager = (manager) => {
   border-color: #cc0000;
 }
 
+.form-group input.error {
+  border-color: #ff0000;
+}
+
 .form-group label {
   position: absolute;
   left: 14px;
@@ -201,6 +320,18 @@ const selectManager = (manager) => {
   background: white;
   padding: 0 5px;
   color: #cc0000;
+}
+
+.form-group input.error + label {
+  color: #ff0000;
+}
+
+.error-message {
+  display: block;
+  color: #ff0000;
+  font-size: 11px;
+  margin-top: 5px;
+  padding-left: 5px;
 }
 
 .checkbox {
@@ -228,9 +359,14 @@ const selectManager = (manager) => {
   transition: all 0.3s;
 }
 
-.submit-btn:hover {
+.submit-btn:hover:not(:disabled) {
   background: #ff1a1a;
   transform: translateY(-2px);
+}
+
+.submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .loader {

@@ -2,17 +2,13 @@
   <div class="cursor" :style="{ transform: `translate(${cursorX}px, ${cursorY}px)` }"></div>
   <div class="cursor-follower" :style="{ transform: `translate(${cursorXFollower}px, ${cursorYFollower}px)` }"></div>
 </template>
-
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-
 const cursorX = ref(0)
 const cursorY = ref(0)
 const cursorXFollower = ref(0)
 const cursorYFollower = ref(0)
-
 let timeoutId
-
 const handleMouseMove = (e) => {
   cursorX.value = e.clientX
   cursorY.value = e.clientY
@@ -21,11 +17,9 @@ const handleMouseMove = (e) => {
     cursorYFollower.value = e.clientY
   }, 50)
 }
-
 onMounted(() => {
   window.addEventListener('mousemove', handleMouseMove)
 })
-
 onUnmounted(() => {
   window.removeEventListener('mousemove', handleMouseMove)
   if (timeoutId) clearTimeout(timeoutId)

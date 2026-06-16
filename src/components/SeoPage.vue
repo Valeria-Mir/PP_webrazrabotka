@@ -1,7 +1,6 @@
 <template>
   <div class="site-full">
     <CustomCursor />
-
     <AppHeader
         :menuOpen="menuOpen"
         @toggleMenu="toggleMenu"
@@ -9,12 +8,8 @@
         @showOrder="showOrderModal = true"
         @scrollToCompany="scrollToCompany"
     />
-
     <MobileMenu :menuOpen="menuOpen" @close="closeMenu" />
-
     <Breadcrumbs currentPage="Продвижение сайта" />
-
-    <!-- HERO СЕКЦИЯ -->
     <section class="hero">
       <div class="hero-blobs">
         <div class="blob blob-1"></div>
