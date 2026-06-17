@@ -19,11 +19,14 @@ defineProps({
   padding: 15px 30px;
   background: #f8f8f8;
   margin-bottom: 20px;
+  padding: 10px 0 !important;
+  margin: 0 !important;
 }
 .breadcrumbs a {
   color: #cc0000;
   text-decoration: none;
   cursor: pointer;
+  margin-left: 12px;
 }
 .breadcrumbs .separator {
   margin: 0 8px;

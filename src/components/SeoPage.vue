@@ -603,8 +603,10 @@ onUnmounted(() => {
 
 /* HERO */
 .hero {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+  min-height: 70vh;
   position: relative;
-  min-height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
