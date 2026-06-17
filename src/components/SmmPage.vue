@@ -21,7 +21,6 @@
         <!-- HERO БЛОК -->
         <div class="smm-hero">
           <div class="hero-image">
-            <!-- Уберите эту секцию или замените на существующее изображение -->
             <video class="hero-video" autoplay loop muted playsinline>
               <source src="/assets/3d.mp4" type="video/mp4">
               Ваш браузер не поддерживает видео
@@ -162,18 +161,48 @@
           <h3 class="titleReq">Оформить заявку на услугу</h3>
           <p>Интернет агентство «Вебразработка» предлагает качественное СММ по демократичным ценам. Чтобы заказать раскрутку Вашей группы – оставьте заявку на необходимый пакет услуг, позвонив нам по телефону или воспользуйтесь специальной формой на нашем сайте.</p>
           <div class="form-block">
-            <form @submit.prevent="submitOrderForm">
+            <form @submit.prevent="submitOrderForm" novalidate>
               <p>Не упустите возможность и закажите услугу прямо сейчас!</p>
+
               <div class="form-row">
-                <input type="text" v-model="requestForm.name" placeholder="Имя *" required>
-                <input type="tel" v-model="requestForm.phone" placeholder="Телефон *" required>
+                <div class="form-group" :class="{ 'has-error': errors.name }">
+                  <input
+                      type="text"
+                      v-model="requestForm.name"
+                      placeholder="Имя *"
+                      @blur="validateField('name')"
+                      @input="validateField('name')"
+                  >
+                  <span class="error-message" v-if="errors.name">{{ errors.name }}</span>
+                </div>
+
+                <div class="form-group" :class="{ 'has-error': errors.phone }">
+                  <input
+                      type="tel"
+                      v-model="requestForm.phone"
+                      placeholder="+7 (___) ___-__-__"
+                      @blur="validateField('phone')"
+                      @input="handlePhoneInput"
+                      maxlength="18"
+                  >
+                  <span class="error-message" v-if="errors.phone">{{ errors.phone }}</span>
+                  <span class="hint-text" v-if="!errors.phone && requestForm.phone">Пример: +7 (999) 123-45-67</span>
+                </div>
               </div>
+
               <p class="zv">* - поля, обязательные для заполнения</p>
-              <label class="checkbox-label">
-                <input type="checkbox" v-model="requestForm.agree" required>
-                <span>Согласие на обработку персональных данных с целью обработки запроса. С условиями <a href="/politika-v-otnoshenii-obrabotki-personalnykh-dannykh">Политики</a> и <a href="/soglasie-posetitelya-saita-na-obrabotku-personalnykh-dannykh">Согласия</a> ознакомлен.</span>
-              </label>
-              <button type="submit" class="submit-btn" :disabled="requestLoading">ОТПРАВИТЬ ЗАЯВКУ</button>
+
+              <div class="form-group" :class="{ 'has-error': errors.agree }">
+                <label class="checkbox-label">
+                  <input type="checkbox" v-model="requestForm.agree" @change="validateField('agree')">
+                  <span>Согласие на обработку персональных данных с целью обработки запроса. С условиями <a href="/politika-v-otnoshenii-obrabotki-personalnykh-dannykh">Политики</a> и <a href="/soglasie-posetitelya-saita-na-obrabotku-personalnykh-dannykh">Согласия</a> ознакомлен.</span>
+                </label>
+                <span class="error-message" v-if="errors.agree">{{ errors.agree }}</span>
+              </div>
+
+              <button type="submit" class="submit-btn" :disabled="requestLoading">
+                {{ requestLoading ? 'ОТПРАВКА...' : 'ОТПРАВИТЬ ЗАЯВКУ' }}
+              </button>
             </form>
           </div>
         </div>
@@ -215,7 +244,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, reactive, onMounted, onUnmounted } from 'vue'
 import CustomCursor from './CustomCursor.vue'
 import AppHeader from './AppHeader.vue'
 import MobileMenu from './MobileMenu.vue'
@@ -232,7 +261,20 @@ const notification = ref({ show: false, message: '' })
 const activeStage = ref(4)
 const openQuestion = ref(null)
 const requestLoading = ref(false)
-const requestForm = ref({ name: '', phone: '', agree: false })
+
+// Состояние формы
+const requestForm = reactive({
+  name: '',
+  phone: '',
+  agree: false
+})
+
+// Ошибки валидации
+const errors = reactive({
+  name: '',
+  phone: '',
+  agree: ''
+})
 
 let starInterval
 
@@ -263,6 +305,180 @@ const questions = [
   }
 ]
 
+// Функции валидации для российского номера
+const validateName = (value) => {
+  if (!value || value.trim().length === 0) {
+    return 'Пожалуйста, введите ваше имя'
+  }
+  if (value.trim().length < 2) {
+    return 'Имя должно содержать минимум 2 символа'
+  }
+  if (!/^[а-яА-Яa-zA-Z\s-]+$/.test(value.trim())) {
+    return 'Имя может содержать только буквы'
+  }
+  return ''
+}
+
+/**
+ * Валидация российского номера телефона
+ * Поддерживает форматы:
+ * - 8 (999) 123-45-67
+ * - +7 (999) 123-45-67
+ * - 89991234567
+ * - +79991234567
+ * - 8-999-123-45-67
+ * - 8 999 123 45 67
+ */
+const validatePhone = (value) => {
+  if (!value || value.trim().length === 0) {
+    return 'Пожалуйста, введите номер телефона'
+  }
+
+  // Удаляем все нецифровые символы
+  const digits = value.replace(/\D/g, '')
+
+  // Проверяем, что есть цифры
+  if (digits.length === 0) {
+    return 'Введите номер телефона'
+  }
+
+  // Российские номера должны содержать 10 или 11 цифр
+  // 10 цифр - номер без кода страны (9xx xxx xx xx)
+  // 11 цифр - номер с кодом страны (8 или 7 в начале)
+  if (digits.length < 10) {
+    return 'Номер должен содержать минимум 10 цифр'
+  }
+
+  if (digits.length > 11) {
+    return 'Номер слишком длинный (максимум 11 цифр)'
+  }
+
+  // Проверка для 11-значных номеров (с кодом страны)
+  if (digits.length === 11) {
+    const firstDigit = digits[0]
+    // Код страны должен быть 7 или 8
+    if (firstDigit !== '7' && firstDigit !== '8') {
+      return 'Номер должен начинаться с +7 или 8'
+    }
+
+    // Проверяем, что после кода страны идет 9 (оператор)
+    const operatorCode = digits.substring(1, 2)
+    if (operatorCode !== '9') {
+      return 'Некорректный код оператора (должен начинаться с 9)'
+    }
+
+    // Проверяем, что остальные 9 цифр (после кода оператора) корректны
+    const restDigits = digits.substring(2)
+    if (restDigits.length !== 9) {
+      return 'Некорректный номер'
+    }
+  }
+
+  // Проверка для 10-значных номеров (без кода страны)
+  if (digits.length === 10) {
+    // Проверяем, что номер начинается с 9
+    if (digits[0] !== '9') {
+      return 'Номер должен начинаться с 9'
+    }
+  }
+
+  return ''
+}
+
+const validateAgree = (value) => {
+  if (!value) {
+    return 'Необходимо согласие на обработку персональных данных'
+  }
+  return ''
+}
+
+// Валидация конкретного поля
+const validateField = (field) => {
+  switch (field) {
+    case 'name':
+      errors.name = validateName(requestForm.name)
+      break
+    case 'phone':
+      errors.phone = validatePhone(requestForm.phone)
+      break
+    case 'agree':
+      errors.agree = validateAgree(requestForm.agree)
+      break
+  }
+}
+
+// Валидация всей формы
+const validateForm = () => {
+  validateField('name')
+  validateField('phone')
+  validateField('agree')
+
+  return !errors.name && !errors.phone && !errors.agree
+}
+
+/**
+ * Форматирование российского номера телефона
+ * Преобразует в формат: +7 (XXX) XXX-XX-XX
+ */
+const formatPhone = (value) => {
+  // Удаляем все нецифровые символы
+  const digits = value.replace(/\D/g, '')
+
+  if (digits.length === 0) return ''
+
+  // Ограничиваем длину 11 цифрами
+  const limitedDigits = digits.slice(0, 11)
+
+  let formatted = ''
+
+  if (limitedDigits.length <= 1) {
+    // Если есть одна цифра, показываем как +7 или +8
+    formatted = '+' + limitedDigits
+  } else if (limitedDigits.length <= 4) {
+    // +7 (XXX)
+    const firstDigit = limitedDigits[0]
+    const areaCode = limitedDigits.slice(1)
+    formatted = '+' + firstDigit + ' (' + areaCode
+  } else if (limitedDigits.length <= 7) {
+    // +7 (XXX) XXX
+    const firstDigit = limitedDigits[0]
+    const areaCode = limitedDigits.slice(1, 4)
+    const firstPart = limitedDigits.slice(4)
+    formatted = '+' + firstDigit + ' (' + areaCode + ') ' + firstPart
+  } else if (limitedDigits.length <= 9) {
+    // +7 (XXX) XXX-XX
+    const firstDigit = limitedDigits[0]
+    const areaCode = limitedDigits.slice(1, 4)
+    const firstPart = limitedDigits.slice(4, 7)
+    const secondPart = limitedDigits.slice(7)
+    formatted = '+' + firstDigit + ' (' + areaCode + ') ' + firstPart + '-' + secondPart
+  } else {
+    // +7 (XXX) XXX-XX-XX
+    const firstDigit = limitedDigits[0]
+    const areaCode = limitedDigits.slice(1, 4)
+    const firstPart = limitedDigits.slice(4, 7)
+    const secondPart = limitedDigits.slice(7, 9)
+    const thirdPart = limitedDigits.slice(9, 11)
+    formatted = '+' + firstDigit + ' (' + areaCode + ') ' + firstPart + '-' + secondPart + '-' + thirdPart
+  }
+
+  return formatted
+}
+
+// Обработка ввода телефона с маской
+const handlePhoneInput = (e) => {
+  const value = e.target.value
+  const formatted = formatPhone(value)
+
+  // Обновляем значение, если оно изменилось
+  if (formatted !== requestForm.phone) {
+    requestForm.phone = formatted
+  }
+
+  // Валидация в реальном времени
+  validateField('phone')
+}
+
 const toggleMenu = () => {
   menuOpen.value = !menuOpen.value
   document.body.style.overflow = menuOpen.value ? 'hidden' : ''
@@ -283,20 +499,47 @@ const toggleQuestion = (idx) => {
 }
 
 const submitOrderForm = async () => {
-  if (!requestForm.value.name || !requestForm.value.phone || !requestForm.value.agree) {
-    handleNotification({ message: 'Заполните все обязательные поля!' })
+  // Валидация всех полей
+  if (!validateForm()) {
+    // Прокрутка к первому полю с ошибкой
+    const firstError = document.querySelector('.has-error input, .has-error input[type="checkbox"]')
+    if (firstError) {
+      firstError.focus()
+      firstError.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }
+    handleNotification({ message: 'Пожалуйста, исправьте ошибки в форме' })
     return
   }
+
   requestLoading.value = true
-  await new Promise(resolve => setTimeout(resolve, 1500))
-  requestLoading.value = false
-  handleNotification({ message: 'Заявка отправлена! Менеджер свяжется с вами.' })
-  requestForm.value = { name: '', phone: '', agree: false }
+
+  try {
+    // Имитация отправки
+    await new Promise(resolve => setTimeout(resolve, 1500))
+
+    // Успешная отправка
+    handleNotification({ message: 'Заявка успешно отправлена! Менеджер свяжется с вами в ближайшее время.' })
+
+    // Очистка формы
+    requestForm.name = ''
+    requestForm.phone = ''
+    requestForm.agree = false
+
+    // Сброс ошибок
+    errors.name = ''
+    errors.phone = ''
+    errors.agree = ''
+
+  } catch (error) {
+    handleNotification({ message: 'Произошла ошибка при отправке. Пожалуйста, попробуйте позже.' })
+  } finally {
+    requestLoading.value = false
+  }
 }
 
 const handleNotification = (data) => {
   notification.value = { show: true, message: data.message }
-  setTimeout(() => { notification.value.show = false }, 3000)
+  setTimeout(() => { notification.value.show = false }, 5000)
 }
 
 const createStars = () => {
@@ -542,24 +785,92 @@ onUnmounted(() => {
   max-width: 600px;
   margin: 0 auto;
 }
+
 .form-row {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
   margin: 20px 0;
 }
-.form-row input {
+
+/* Группа полей */
+.form-group {
   flex: 1;
+  min-width: 200px;
+  position: relative;
+}
+
+.form-group input[type="text"],
+.form-group input[type="tel"] {
+  width: 100%;
   padding: 14px;
-  border: 1px solid #ddd;
+  border: 2px solid #ddd;
   border-radius: 12px;
   font-size: 14px;
+  transition: all 0.3s ease;
+  background: white;
+  font-family: inherit;
 }
+
+.form-group input[type="text"]:focus,
+.form-group input[type="tel"]:focus {
+  border-color: #cc0000;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(204, 0, 0, 0.1);
+}
+
+.form-group input[type="text"]::placeholder,
+.form-group input[type="tel"]::placeholder {
+  color: #999;
+}
+
+/* Стили для ошибок */
+.form-group.has-error input[type="text"],
+.form-group.has-error input[type="tel"] {
+  border-color: #ff0000;
+  background-color: #fff5f5;
+}
+
+.form-group.has-error input[type="text"]:focus,
+.form-group.has-error input[type="tel"]:focus {
+  border-color: #ff0000;
+  box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.1);
+}
+
+.error-message {
+  display: block;
+  color: #ff0000;
+  font-size: 12px;
+  margin-top: 5px;
+  padding-left: 5px;
+  animation: fadeIn 0.3s ease;
+}
+
+.hint-text {
+  display: block;
+  color: #999;
+  font-size: 11px;
+  margin-top: 4px;
+  padding-left: 5px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .zv {
   font-size: 12px;
   color: #999;
   margin: 10px 0;
 }
+
 .checkbox-label {
   display: flex;
   align-items: flex-start;
@@ -567,13 +878,26 @@ onUnmounted(() => {
   margin: 20px 0;
   cursor: pointer;
 }
+
 .checkbox-label span {
   font-size: 12px;
   color: #666;
+  line-height: 1.4;
 }
+
 .checkbox-label a {
   color: #cc0000;
+  text-decoration: underline;
 }
+
+.checkbox-label a:hover {
+  color: #ff1a1a;
+}
+
+.form-group.has-error .checkbox-label {
+  color: #ff0000;
+}
+
 .submit-btn {
   width: 100%;
   padding: 14px;
@@ -584,10 +908,19 @@ onUnmounted(() => {
   cursor: pointer;
   font-weight: bold;
   transition: all 0.3s;
+  font-size: 16px;
 }
-.submit-btn:hover {
+
+.submit-btn:hover:not(:disabled) {
   background: #ff1a1a;
   transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(204, 0, 0, 0.3);
+}
+
+.submit-btn:disabled {
+  background: #999;
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 
 /* Вопросы */
@@ -646,6 +979,12 @@ onUnmounted(() => {
   .form-row {
     flex-direction: column;
   }
+  .request-form {
+    padding: 20px;
+  }
+  .form-group {
+    min-width: 100%;
+  }
 }
 
 .star {
@@ -664,13 +1003,6 @@ onUnmounted(() => {
   0% { opacity: 0; }
   50% { opacity: 0.5; transform: scale(1.5); }
   100% { opacity: 0; }
-}
-.smm-hero {
-  display: flex;
-  gap: 40px;
-  margin-bottom: 60px;
-  align-items: center;
-  flex-wrap: wrap;
 }
 
 .hero-image {
@@ -695,7 +1027,6 @@ onUnmounted(() => {
   transform: scale(1.02);
 }
 
-/* Если видео не воспроизводится автоматически */
 .hero-video {
   pointer-events: none;
 }
@@ -705,5 +1036,11 @@ onUnmounted(() => {
 }
 .header {
   position: relative !important;
+}
+
+/* Стили для чекбокса при ошибке */
+.form-group.has-error .checkbox-label input[type="checkbox"] {
+  outline: 2px solid #ff0000;
+  outline-offset: 2px;
 }
 </style>

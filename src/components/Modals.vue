@@ -29,7 +29,7 @@
               @input="formatPhone"
               :class="{ error: errors.phone }"
           >
-          <label>Телефон *</label>
+          <label></label>
           <span class="error-message" v-if="errors.phone">{{ errors.phone }}</span>
         </div>
 
@@ -246,6 +246,7 @@ const selectManager = (manager) => {
   align-items: center;
   justify-content: center;
   z-index: 2000;
+  padding: 20px;
 }
 
 .modal-content {
@@ -255,6 +256,13 @@ const selectManager = (manager) => {
   max-width: 500px;
   width: 90%;
   position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* ГЛАВНЫЙ ФИКС - чтобы инпуты не зумили на iOS */
+.modal-content input {
+  font-size: 16px !important;
 }
 
 .modal-close {
@@ -437,5 +445,18 @@ const selectManager = (manager) => {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(204, 0, 0, 0.1);
+}
+
+/* ТОЛЬКО ДЛЯ ТЕЛЕФОНОВ - чтобы не прыгало */
+@media (max-width: 768px) {
+  .modal-content {
+    padding: 30px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    padding: 25px 15px;
+  }
 }
 </style>

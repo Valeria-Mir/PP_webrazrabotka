@@ -74,10 +74,10 @@ const goToSmmPage = () => {
 .footer-logo { display: flex; align-items: center; gap: 15px; margin-bottom: 40px; }
 .footer-logo .logo-icon img { width: 40px; height: 40px; object-fit: contain; filter: brightness(0) invert(1); }
 .footer-logo .logo-text span:first-child { font-size: 10px; color: #888; }
-.footer-logo .logo-text .name { font-size: 18px; font-weight: bold; color: #ffffff; }
+.footer-logo .logo-text .name { font-size: 18px; font-weight: bold; color: #ffffff;margin-left: 7px; }
 .footer-links { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; margin-bottom: 40px; }
 .footer-col h4 { color: #cc0000; margin-bottom: 15px; font-size: 16px; }
-.footer-col a { display: block; color: #aaa; text-decoration: none; font-size: 14px; margin-bottom: 10px; transition: color 0.3s; cursor: pointer; }
+.footer-col a { display: flex; color: #aaa; text-decoration: none; font-size: 14px; margin-bottom: 10px; transition: color 0.3s; cursor: pointer; }
 .footer-col a:hover { color: #cc0000; }
 .social-links { display: flex; gap: 15px; margin-top: 15px; }
 .social-link {
