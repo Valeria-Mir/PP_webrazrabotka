@@ -299,10 +299,4 @@ watch(() => props.menuOpen, (isOpen) => {
   gap: 10px;
 }
 
-@media (prefers-color-scheme: dark) {
-  .mobile-menu-contacts {
-    border-top-color: rgba(255, 255, 255, 0.05);
-  }
-}
-
 </style>
