@@ -1123,19 +1123,116 @@ onUnmounted(() => { if (starInterval) clearInterval(starInterval) })
 }
 
 @media (max-width: 768px) {
-  .hero-metrics {
-    gap: 15px;
-    padding-top: 20px;
-    justify-content: center;
+  .hero-section {
+    background: linear-gradient(135deg, #fef5f5 0%, #f8e8e8 50%, #fef0f0 100%) !important;
+    position: relative;
   }
-  .metric {
-    min-width: 100px;
-    flex: 0 1 auto;
-    align-items: center;
-    text-align: center;
+
+  .hero-section .hero-bg {
+    display: none;
   }
-  .metric-value { font-size: 24px; }
-  .metric-label { font-size: 9px; letter-spacing: 0.5px; }
+
+  .services-section {
+    background: #ffffff !important;
+    position: relative;
+  }
+
+  .services-section .section-bg {
+    display: none;
+  }
+
+  .offers-section {
+    background: #f8f6f5 !important;
+    position: relative;
+  }
+
+  .offers-section .section-bg {
+    display: none;
+  }
+
+  .solutions-section {
+    background: #ffffff !important;
+    position: relative;
+  }
+
+  .solutions-section .section-bg {
+    display: none;
+  }
+
+  .stats-section {
+    background: #f8f6f5 !important;
+    position: relative;
+  }
+
+  .stats-section .section-bg {
+    display: none;
+  }
+
+  .prices-section {
+    background: #ffffff !important;
+    position: relative;
+  }
+
+  .prices-section .section-bg {
+    display: none;
+  }
+
+  .calculator-section {
+    background: #f8f6f5 !important;
+    position: relative;
+  }
+
+  .calculator-section .section-bg {
+    display: none;
+  }
+
+  .managers-section {
+    background: #ffffff !important;
+    position: relative;
+  }
+
+  .managers-section .section-bg {
+    display: none;
+  }
+
+  .form-section {
+    background: #f8f6f5 !important;
+    position: relative;
+  }
+
+  .form-section .section-bg {
+    display: none;
+  }
+
+  /* Яркие красные акценты на мобильных */
+  .hero-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #cc0000, #ff4444, #cc0000);
+    opacity: 0.4;
+  }
+
+  .services-section::after,
+  .offers-section::after,
+  .solutions-section::after,
+  .stats-section::after,
+  .prices-section::after,
+  .calculator-section::after,
+  .managers-section::after,
+  .form-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #cc0000, transparent);
+    opacity: 0.15;
+  }
 }
 
 @media (max-width: 600px) {
