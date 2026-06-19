@@ -1043,4 +1043,120 @@ onUnmounted(() => {
   outline: 2px solid #ff0000;
   outline-offset: 2px;
 }
+/* ===== ТЕМНАЯ ТЕМА ===== */
+.site-full.dark-mode {
+  background: #0a0a0a;
+}
+
+.site-full.dark-mode .smm-page-content {
+  background: #0a0a0a;
+}
+
+.site-full.dark-mode .hero-text h1 {
+  color: #f0f0f0;
+}
+
+.site-full.dark-mode .hero-text ul li {
+  color: #cccccc;
+}
+
+.site-full.dark-mode .titleSmm {
+  color: #f0f0f0;
+}
+
+.site-full.dark-mode .service-block {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.site-full.dark-mode .service-block h3 {
+  color: #cc0000;
+}
+
+.site-full.dark-mode .service-block li {
+  color: #cccccc;
+}
+
+.site-full.dark-mode .task-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.site-full.dark-mode .task-name {
+  color: #cc0000;
+}
+
+.site-full.dark-mode .task-card li {
+  color: #cccccc;
+}
+
+.site-full.dark-mode .stage-item {
+  border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
+.site-full.dark-mode .stage-content {
+  background: rgba(255, 255, 255, 0.05);
+  color: #cccccc;
+}
+
+.site-full.dark-mode .advantage-smm {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.site-full.dark-mode .advantage-smm:hover {
+  border-color: #cc0000;
+}
+
+.site-full.dark-mode .advantage-smm .name {
+  color: #f0f0f0;
+}
+
+.site-full.dark-mode .advantage-smm p {
+  color: #aaaaaa;
+}
+
+.site-full.dark-mode .request-form {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.site-full.dark-mode .titleReq {
+  color: #f0f0f0;
+}
+
+.site-full.dark-mode .request-form p {
+  color: #cccccc;
+}
+
+.site-full.dark-mode .form-group input[type="text"],
+.site-full.dark-mode .form-group input[type="tel"] {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: #1a1a1a;
+  color: #f0f0f0;
+}
+
+.site-full.dark-mode .form-group input[type="text"]::placeholder,
+.site-full.dark-mode .form-group input[type="tel"]::placeholder {
+  color: #666;
+}
+
+.site-full.dark-mode .checkbox-label span {
+  color: #888;
+}
+
+.site-full.dark-mode .question-title {
+  color: #f0f0f0;
+}
+
+.site-full.dark-mode .question-title:hover {
+  background: rgba(204, 0, 0, 0.05);
+}
+
+.site-full.dark-mode .question-answer {
+  color: #cccccc;
+}
+
+.site-full.dark-mode .popular-questions {
+  border-top-color: rgba(255, 255, 255, 0.05);
+}
 </style>

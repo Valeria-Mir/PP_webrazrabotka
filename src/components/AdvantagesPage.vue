@@ -394,6 +394,185 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+/* ===== ТЕМНАЯ ТЕМА ===== */
+.site-full.dark-mode {
+  background: #0a0a0a;
+}
+
+.site-full.dark-mode .section-title {
+  color: #f0f0f0;
+}
+
+.site-full.dark-mode .advantages-hero {
+  background: linear-gradient(135deg, #0d0d0d 0%, #1a0a0a 50%, #0d0d0d 100%);
+}
+
+.site-full.dark-mode .hero-subtitle {
+  color: #e0e0e0;
+}
+
+.site-full.dark-mode .hero-description {
+  color: #aaaaaa;
+}
+
+.site-full.dark-mode .tech-text {
+  color: #e0e0e0;
+}
+
+.site-full.dark-mode .feature-item {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.site-full.dark-mode .feature-item:hover {
+  border-color: rgba(204, 0, 0, 0.3);
+}
+
+.site-full.dark-mode .feature-title {
+  color: #cc0000;
+}
+
+.site-full.dark-mode .feature-desc {
+  color: #aaaaaa;
+}
+
+.site-full.dark-mode .glass-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.site-full.dark-mode .glass-card:hover {
+  box-shadow: 0 20px 50px rgba(204, 0, 0, 0.15);
+  border-color: rgba(204, 0, 0, 0.3);
+}
+
+.site-full.dark-mode .help-section {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.site-full.dark-mode .help-text h3 {
+  color: #f0f0f0;
+}
+
+.site-full.dark-mode .help-text li {
+  color: #cccccc;
+}
+
+.site-full.dark-mode .quote-card p {
+  color: #e0e0e0;
+}
+
+.site-full.dark-mode .showcase-section {
+  background: #111111;
+}
+
+.site-full.dark-mode .showcase-subtitle {
+  color: #f0f0f0;
+}
+
+.site-full.dark-mode .showcase-desc {
+  color: #aaaaaa;
+}
+
+.site-full.dark-mode .showcase-block {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.site-full.dark-mode .showcase-block:hover {
+  border-color: rgba(204, 0, 0, 0.3);
+}
+
+.site-full.dark-mode .showcase-block h4 {
+  color: #cc0000;
+}
+
+.site-full.dark-mode .showcase-block li {
+  color: #cccccc;
+}
+
+.site-full.dark-mode .showcase-footer p {
+  color: #cccccc;
+}
+
+.site-full.dark-mode .showcase-footer .bold {
+  color: #f0f0f0;
+}
+
+.site-full.dark-mode .economy-section {
+  background: linear-gradient(135deg, #0d0d0d, #1a0a0a);
+}
+
+.site-full.dark-mode .compare-card h3 {
+  color: #cc0000;
+}
+
+.site-full.dark-mode .compare-card li {
+  color: #cccccc;
+}
+
+.site-full.dark-mode .offer-card-adv h3 {
+  color: #f0f0f0;
+}
+
+.site-full.dark-mode .offer-card-adv p {
+  color: #aaaaaa;
+}
+
+.site-full.dark-mode .special-offer {
+  background: linear-gradient(135deg, #1a0a0a, #0d0d0d, #1a0a0a);
+  border-color: rgba(204, 0, 0, 0.2);
+}
+
+.site-full.dark-mode .special-text {
+  color: #e0e0e0;
+}
+
+.site-full.dark-mode .gifts-section {
+  background: #111111;
+}
+
+.site-full.dark-mode .gift-col h3 {
+  color: #cc0000;
+}
+
+.site-full.dark-mode .gift-col li {
+  color: #cccccc;
+}
+
+.site-full.dark-mode .low-price-section {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.site-full.dark-mode .free-text {
+  color: #e0e0e0;
+}
+
+.site-full.dark-mode .free-list li {
+  color: #cccccc;
+}
+
+.site-full.dark-mode .reason-title {
+  color: #f0f0f0;
+}
+
+.site-full.dark-mode .reason-desc {
+  color: #aaaaaa;
+}
+
+.site-full.dark-mode .manager-name-adv {
+  color: #f0f0f0;
+}
+
+.site-full.dark-mode .manager-spec-adv {
+  color: #888888;
+}
+
+.site-full.dark-mode .manager-phone-adv a,
+.site-full.dark-mode .manager-email-adv a,
+.site-full.dark-mode .manager-tg-adv a {
+  color: #cc0000;
+}
 * { margin: 0; padding: 0; box-sizing: border-box; }
 .site-full { width: 100%; min-height: 100vh; background: #ffffff; overflow-x: hidden; }
 

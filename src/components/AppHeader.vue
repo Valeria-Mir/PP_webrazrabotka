@@ -1,5 +1,6 @@
 <template>
   <header class="header glass">
+    <!-- Верхняя часть хедера -->
     <div class="header-top">
       <div class="header-top-inner">
         <div class="info-block"
@@ -23,9 +24,12 @@
         </div>
       </div>
     </div>
+
+    <!-- Нижняя часть хедера -->
     <div class="header-bottom">
       <div class="header-bottom-inner">
-        <div class="logo" data-glow>
+        <!-- ЛОГОТИП - КЛИКАБЕЛЬНЫЙ, ВЕДЕТ НА ГЛАВНУЮ -->
+        <div class="logo" data-glow @click="goToHomePage">
           <div class="logo-icon pulse">
             <img src="/assets/logo.png" alt="logo">
           </div>
@@ -34,6 +38,16 @@
             <span class="name">ВЕБРАЗРАБОТКА</span>
           </div>
         </div>
+
+        <!-- НАВИГАЦИЯ ДЛЯ ДЕСКТОПА -->
+        <nav class="desktop-nav">
+          <a href="#" @click.prevent="goToHomePage">Главная</a>
+          <a href="#" @click.prevent="goToSeoPage">SEO продвижение</a>
+          <a href="#" @click.prevent="goToContextPage">Контекстная реклама</a>
+          <a href="#" @click.prevent="goToSmmPage">SMM продвижение</a>
+          <a href="#" @click.prevent="goToAdvantagesPage">Преимущества</a>
+        </nav>
+
         <div class="nav">
           <div class="burger-menu" @click="$emit('toggleMenu')">
             <span class="burger" :class="{ active: menuOpen }"></span>
@@ -48,7 +62,7 @@
 </template>
 
 <script setup>
-import {ref} from 'vue'
+import {ref, inject} from 'vue'
 
 defineProps({
   menuOpen: Boolean
@@ -57,6 +71,7 @@ defineProps({
 defineEmits(['toggleMenu', 'showManagers', 'showOrder', 'scrollToCompany'])
 
 const selectedCity = ref('Нижний Новгород')
+const switchPage = inject('switchPage')
 
 const headerInfo = [
   {days: 'ПН', hours: '09 - 21', label: 'Заказать сайт', phone: '+79056611860', phoneFormatted: '+7 (905) 661-18-60'},
@@ -75,6 +90,33 @@ const headerInfo = [
     phoneFormatted: '+7 (831) 422-85-99'
   }
 ]
+
+// Функция перехода на главную страницу
+const goToHomePage = () => {
+  switchPage('home')
+  window.scrollTo({top: 0, behavior: 'smooth'})
+}
+
+// Функции переключения страниц
+const goToSeoPage = () => {
+  switchPage('seo')
+  window.scrollTo({top: 0, behavior: 'smooth'})
+}
+
+const goToContextPage = () => {
+  switchPage('context')
+  window.scrollTo({top: 0, behavior: 'smooth'})
+}
+
+const goToSmmPage = () => {
+  switchPage('smm')
+  window.scrollTo({top: 0, behavior: 'smooth'})
+}
+
+const goToAdvantagesPage = () => {
+  switchPage('advantages')
+  window.scrollTo({top: 0, behavior: 'smooth'})
+}
 </script>
 
 <style scoped>
@@ -85,6 +127,67 @@ const headerInfo = [
   background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(204, 0, 0, 0.2);
+}
+
+@media (prefers-color-scheme: dark) {
+  .header {
+    background: rgba(10, 10, 10, 0.98);
+    border-bottom-color: rgba(204, 0, 0, 0.3);
+  }
+
+  .header-top {
+    border-bottom-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .clock p {
+    color: #aaaaaa;
+  }
+
+  .contact-info .label {
+    color: #888888;
+  }
+
+  .contact-info a {
+    color: #e0e0e0;
+  }
+
+  .contact-info a:hover {
+    color: #cc0000;
+  }
+
+  .city-select .label {
+    color: #888888;
+  }
+
+  .city-select select {
+    background: #1a1a1a;
+    border-color: #333;
+    color: #e0e0e0;
+  }
+
+  .logo-text span:first-child {
+    color: #888888;
+  }
+
+  .logo-text .name {
+    color: #f0f0f0;
+  }
+
+  .desktop-nav a {
+    color: #cccccc;
+  }
+
+  .desktop-nav a:hover {
+    color: #cc0000;
+  }
+
+  .about-link {
+    color: #cccccc;
+  }
+
+  .about-link:hover {
+    color: #cc0000;
+  }
 }
 
 .header-top {
@@ -108,23 +211,12 @@ const headerInfo = [
   min-width: 200px;
 }
 
-/* Стили для первого блока */
 .first-block {
   padding: 8px 15px;
   border-radius: 12px;
   position: relative;
 }
 
-.first-block::before {
-  font-size: 12px;
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  background: white;
-  padding: 0 4px;
-}
-
-/* Стиль для лейбла "Заказать сайт" */
 .order-label {
   margin-left: 12px;
 }
@@ -197,6 +289,11 @@ const headerInfo = [
   cursor: pointer;
 }
 
+.city-select select:focus {
+  outline: none;
+  border-color: #cc0000;
+}
+
 .header-bottom {
   padding: 20px 30px;
 }
@@ -215,6 +312,12 @@ const headerInfo = [
   gap: 15px;
   cursor: pointer;
   flex-shrink: 0;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.logo:hover {
+  opacity: 0.8;
 }
 
 .logo-icon img {
@@ -239,6 +342,44 @@ const headerInfo = [
   color: #000000;
 }
 
+/* ДЕСКТОПНАЯ НАВИГАЦИЯ */
+.desktop-nav {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  margin: 0 20px;
+}
+
+.desktop-nav a {
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 5px 0;
+  cursor: pointer;
+}
+
+.desktop-nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #cc0000;
+  transition: width 0.3s ease;
+}
+
+.desktop-nav a:hover {
+  color: #cc0000;
+}
+
+.desktop-nav a:hover::after {
+  width: 100%;
+}
+
 .nav {
   display: flex;
   align-items: center;
@@ -258,6 +399,7 @@ const headerInfo = [
   position: relative;
   overflow: hidden;
   white-space: nowrap;
+  font-size: 14px;
 }
 
 .neon-btn:before {
@@ -288,6 +430,7 @@ const headerInfo = [
   transition: color 0.3s;
   cursor: pointer;
   white-space: nowrap;
+  font-size: 14px;
 }
 
 .about-link:hover {
@@ -309,7 +452,8 @@ const headerInfo = [
   transition: all 0.3s ease;
 }
 
-.burger:before, .burger:after {
+.burger:before,
+.burger:after {
   content: '';
   position: absolute;
   width: 25px;
@@ -356,7 +500,7 @@ const headerInfo = [
   }
 }
 
-/* Адаптив */
+/* АДАПТИВНЫЕ СТИЛИ */
 @media (max-width: 1200px) {
   .header-top {
     padding: 12px 20px;
@@ -378,12 +522,12 @@ const headerInfo = [
     font-size: 15px !important;
   }
 
-  .first-block {
-    padding: 6px 12px;
+  .desktop-nav {
+    gap: 15px;
   }
 
-  .order-label {
-    font-size: 11px !important;
+  .desktop-nav a {
+    font-size: 13px;
   }
 }
 
@@ -402,8 +546,12 @@ const headerInfo = [
     justify-content: center;
   }
 
-  .first-block {
-    padding: 6px 12px;
+  .desktop-nav {
+    gap: 12px;
+  }
+
+  .desktop-nav a {
+    font-size: 12px;
   }
 }
 
@@ -444,6 +592,10 @@ const headerInfo = [
     padding-top: 5px;
   }
 
+  .desktop-nav {
+    display: none;
+  }
+
   .burger-menu {
     display: block;
   }
@@ -470,23 +622,8 @@ const headerInfo = [
     height: 32px;
   }
 
-  .first-block {
-    padding: 8px 12px;
-    margin-bottom: 2px;
-  }
-
-  .first-block::before {
-    font-size: 10px;
-    top: -4px;
-    right: -4px;
-  }
-
   .first-phone {
     font-size: 15px !important;
-  }
-
-  .order-label {
-    font-size: 11px !important;
   }
 }
 
@@ -543,22 +680,18 @@ const headerInfo = [
     padding: 4px 8px;
   }
 
-  .first-block {
-    padding: 6px 10px;
-  }
-
-  .first-block::before {
-    font-size: 9px;
-    top: -3px;
-    right: -3px;
-  }
-
   .first-phone {
     font-size: 14px !important;
   }
 
-  .order-label {
-    font-size: 10px !important;
+  .nav {
+    gap: 8px;
+  }
+}
+
+@media (prefers-color-scheme: dark) and (max-width: 768px) {
+  .info-block {
+    border-bottom-color: rgba(255, 255, 255, 0.05);
   }
 }
 </style>

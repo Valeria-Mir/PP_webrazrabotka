@@ -459,4 +459,54 @@ const selectManager = (manager) => {
     padding: 25px 15px;
   }
 }
+/* ===== ТЕМНАЯ ТЕМА ===== */
+.site-full.dark-mode .modal-content {
+  background: #1a1a1a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.site-full.dark-mode .modal-content h3 {
+  color: #f0f0f0;
+}
+
+.site-full.dark-mode .modal-content .form-group input {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: #333;
+  color: #f0f0f0;
+}
+
+.site-full.dark-mode .modal-content .form-group input:focus {
+  border-color: #cc0000;
+}
+
+.site-full.dark-mode .modal-content .form-group label {
+  color: #888;
+}
+
+.site-full.dark-mode .modal-content .form-group input:focus + label,
+.site-full.dark-mode .modal-content .form-group input:not(:placeholder-shown) + label {
+  background: #1a1a1a;
+  color: #cc0000;
+}
+
+.site-full.dark-mode .modal-content .checkbox span {
+  color: #888;
+}
+
+.site-full.dark-mode .modal-content .manager-card {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.site-full.dark-mode .modal-content .manager-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid #cc0000;
+}
+
+.site-full.dark-mode .modal-content .manager-name {
+  color: #f0f0f0;
+}
+
+.site-full.dark-mode .modal-content .manager-spec {
+  color: #888;
+}
 </style>

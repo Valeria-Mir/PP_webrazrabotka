@@ -900,4 +900,131 @@ onUnmounted(() => {
 .info-card-icon .svg-icon {
   filter: brightness(0) saturate(100%) invert(14%) sepia(99%) saturate(7000%) hue-rotate(0deg) brightness(95%) contrast(110%);
 }
+/* ===== ТЕМНАЯ ТЕМА ===== */
+.site-full.dark-mode {
+  background: #0a0a0a;
+}
+
+.site-full.dark-mode .offers {
+  background: linear-gradient(135deg, #0d0d0d 0%, #1a0a0a 50%, #0d0d0d 100%);
+}
+
+.site-full.dark-mode .offer-card-inner {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(204, 0, 0, 0.2);
+}
+
+.site-full.dark-mode .offer-card-inner:hover {
+  border-color: #cc0000;
+  box-shadow: 0 20px 50px rgba(204, 0, 0, 0.2);
+}
+
+.site-full.dark-mode .offer-text {
+  color: #f0f0f0;
+}
+
+.site-full.dark-mode .info-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.site-full.dark-mode .info-card h1 {
+  color: #f0f0f0;
+}
+
+.site-full.dark-mode .info-card p {
+  color: #cccccc;
+}
+
+.site-full.dark-mode .section-title {
+  color: #f0f0f0;
+}
+
+.site-full.dark-mode .benefit-item {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.site-full.dark-mode .benefit-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(204, 0, 0, 0.2);
+}
+
+.site-full.dark-mode .benefit-text {
+  color: #e0e0e0;
+}
+
+.site-full.dark-mode .advantage-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.site-full.dark-mode .advantage-card:hover {
+  border-color: #cc0000;
+}
+
+.site-full.dark-mode .advantage-title {
+  color: #f0f0f0;
+}
+
+.site-full.dark-mode .advantage-desc {
+  color: #aaaaaa;
+}
+
+.site-full.dark-mode .process-step {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.site-full.dark-mode .step-title {
+  color: #f0f0f0;
+}
+
+.site-full.dark-mode .step-list li {
+  color: #cccccc;
+}
+
+.site-full.dark-mode .process-call {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.site-full.dark-mode .platform-card {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.site-full.dark-mode .platform-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(204, 0, 0, 0.2);
+}
+
+.site-full.dark-mode .platform-name {
+  color: #cc0000;
+}
+
+.site-full.dark-mode .platform-content p {
+  color: #cccccc;
+}
+
+.site-full.dark-mode .platform-call {
+  border-top-color: rgba(255, 255, 255, 0.05);
+}
+
+.site-full.dark-mode .banner-block {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.site-full.dark-mode .banner-block h3 {
+  color: #f0f0f0;
+}
+
+.site-full.dark-mode .banner-block p {
+  color: #cccccc;
+}
+
+.site-full.dark-mode .banner-adv-title {
+  color: #f0f0f0;
+}
+
+.site-full.dark-mode .banner-advantages li {
+  color: #cccccc;
+}
 </style>
