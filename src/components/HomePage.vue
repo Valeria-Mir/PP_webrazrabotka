@@ -77,7 +77,7 @@
             </div>
             <h3>{{ s.title }}</h3>
             <p>{{ s.desc }}</p>
-            <button class="service-link" @click="showOrderModal = true">Подробнее →</button>
+            <button class="service-link" @click="goToServicePage(i)">Подробнее →</button>
           </div>
         </div>
       </div>
@@ -386,7 +386,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted, reactive } from 'vue'
+import { ref, computed, onMounted, onUnmounted, reactive, inject } from 'vue'
 import CustomCursor from './CustomCursor.vue'
 import AppHeader from './AppHeader.vue'
 import MobileMenu from './MobileMenu.vue'
@@ -400,6 +400,8 @@ import svetlanaImg from '/assets/svetlana.jpeg'
 import ritaImg from '/assets/rita.jpg'
 import yuliyaImg from '/assets/yuliya.png'
 import kristinaImg from '/assets/kristina.jpg'
+
+const switchPage = inject('switchPage')
 
 const showOrderModal = ref(false)
 const showManagersModal = ref(false)
@@ -682,6 +684,22 @@ const totalPrice = computed(() => {
   }, 0)
   return total > 0 ? `${total.toLocaleString()} ₽` : '0 ₽'
 })
+
+// ===== ФУНКЦИИ ПЕРЕХОДА НА СТРАНИЦЫ УСЛУГ =====
+const goToServicePage = (index) => {
+  const pageMap = {
+    0: 'home',      // Разработка сайтов - на главную
+    1: 'context',   // Контекстная реклама
+    2: 'seo',       // SEO-продвижение
+    3: 'home',      // Ведение Авито - на главную (если нет отдельной страницы)
+    4: 'smm',       // Продвижение в VK
+    5: 'home'       // Программирование - на главную
+  }
+
+  const page = pageMap[index] || 'home'
+  switchPage(page)
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
 
 const toggleMenu = () => {
   menuOpen.value = !menuOpen.value
@@ -1123,164 +1141,609 @@ onUnmounted(() => { if (starInterval) clearInterval(starInterval) })
 }
 
 @media (max-width: 768px) {
-  .hero-section {
-    background: linear-gradient(135deg, #fef5f5 0%, #f8e8e8 50%, #fef0f0 100%) !important;
-    position: relative;
+  .hero-title { font-size: 40px; }
+  .services-grid { grid-template-columns: 1fr; }
+  .offers-grid { grid-template-columns: 1fr; gap: 20px; }
+  .solutions-grid { grid-template-columns: 1fr 1fr; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .prices-grid { grid-template-columns: repeat(2, 1fr); }
+  .managers-grid { grid-template-columns: repeat(2, 1fr); }
+  .form-wrapper { grid-template-columns: 1fr; gap: 30px; padding: 24px; }
+  .field-group { grid-template-columns: 1fr; }
+  .section-title { font-size: 28px; }
+  .bonus-list { gap: 20px; }
+  .calculator-box { padding: 20px; }
+  .calc-item { flex-wrap: wrap; gap: 10px; }
+  .calc-price { min-width: 80px; }
+  .calc-tabs { gap: 6px; }
+  .calc-tab { padding: 8px 14px; font-size: 12px; }
+  /* Убираем display: none для кругов, оставляем только для старых элементов */
+  .wave, .glow, .line-group, .dot-pattern { display: none; }
+
+  /* ===== МОБИЛЬНЫЙ ФОН С КРУГАМИ (усиленный) ===== */
+  /* Красные круги на фоне для мобильной версии */
+  .hero-section::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.15) 0%, rgba(204, 0, 0, 0.05) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 8s ease-in-out infinite;
   }
 
-  .hero-section .hero-bg {
-    display: none;
-  }
-
-  .services-section {
-    background: #ffffff !important;
-    position: relative;
-  }
-
-  .services-section .section-bg {
-    display: none;
-  }
-
-  .offers-section {
-    background: #f8f6f5 !important;
-    position: relative;
-  }
-
-  .offers-section .section-bg {
-    display: none;
-  }
-
-  .solutions-section {
-    background: #ffffff !important;
-    position: relative;
-  }
-
-  .solutions-section .section-bg {
-    display: none;
-  }
-
-  .stats-section {
-    background: #f8f6f5 !important;
-    position: relative;
-  }
-
-  .stats-section .section-bg {
-    display: none;
-  }
-
-  .prices-section {
-    background: #ffffff !important;
-    position: relative;
-  }
-
-  .prices-section .section-bg {
-    display: none;
-  }
-
-  .calculator-section {
-    background: #f8f6f5 !important;
-    position: relative;
-  }
-
-  .calculator-section .section-bg {
-    display: none;
-  }
-
-  .managers-section {
-    background: #ffffff !important;
-    position: relative;
-  }
-
-  .managers-section .section-bg {
-    display: none;
-  }
-
-  .form-section {
-    background: #f8f6f5 !important;
-    position: relative;
-  }
-
-  .form-section .section-bg {
-    display: none;
-  }
-
-  /* Яркие красные акценты на мобильных */
   .hero-section::after {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #cc0000, #ff4444, #cc0000);
-    opacity: 0.4;
+    bottom: -80px;
+    left: -80px;
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.12) 0%, rgba(204, 0, 0, 0.04) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 10s ease-in-out infinite reverse;
   }
 
-  .services-section::after,
-  .offers-section::after,
-  .solutions-section::after,
-  .stats-section::after,
-  .prices-section::after,
-  .calculator-section::after,
-  .managers-section::after,
-  .form-section::after {
+  .services-section::before {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, transparent, #cc0000, transparent);
-    opacity: 0.15;
+    top: 20%;
+    right: -60px;
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.12) 0%, rgba(204, 0, 0, 0.04) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 7s ease-in-out infinite;
+  }
+
+  .services-section::after {
+    content: '';
+    position: absolute;
+    bottom: 10%;
+    left: -70px;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.10) 0%, rgba(204, 0, 0, 0.03) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 9s ease-in-out infinite reverse;
+  }
+
+  .offers-section::before {
+    content: '';
+    position: absolute;
+    top: 30%;
+    right: -50px;
+    width: 160px;
+    height: 160px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.12) 0%, rgba(204, 0, 0, 0.04) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 6s ease-in-out infinite;
+  }
+
+  .solutions-section::before {
+    content: '';
+    position: absolute;
+    top: 15%;
+    left: -40px;
+    width: 240px;
+    height: 240px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.12) 0%, rgba(204, 0, 0, 0.04) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 11s ease-in-out infinite;
+  }
+
+  .stats-section::before {
+    content: '';
+    position: absolute;
+    bottom: 20%;
+    right: -60px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.13) 0%, rgba(204, 0, 0, 0.04) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 8s ease-in-out infinite reverse;
+  }
+
+  .prices-section::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: -50px;
+    width: 170px;
+    height: 170px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.12) 0%, rgba(204, 0, 0, 0.04) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 7s ease-in-out infinite;
+  }
+
+  .calculator-section::before {
+    content: '';
+    position: absolute;
+    bottom: 30%;
+    right: -40px;
+    width: 140px;
+    height: 140px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.14) 0%, rgba(204, 0, 0, 0.05) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 5s ease-in-out infinite;
+  }
+
+  .managers-section::before {
+    content: '';
+    position: absolute;
+    top: 20%;
+    right: -30px;
+    width: 110px;
+    height: 110px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.15) 0%, rgba(204, 0, 0, 0.05) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 4s ease-in-out infinite;
+  }
+
+  .form-section::before {
+    content: '';
+    position: absolute;
+    bottom: 10%;
+    left: -30px;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.13) 0%, rgba(204, 0, 0, 0.04) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 6s ease-in-out infinite reverse;
+  }
+
+  /* Анимация плавающих кругов */
+  @keyframes floatCircle {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+    }
+    25% {
+      transform: translate(10px, -15px) scale(1.05);
+    }
+    50% {
+      transform: translate(-5px, 10px) scale(0.95);
+    }
+    75% {
+      transform: translate(15px, 5px) scale(1.02);
+    }
   }
 }
 
-@media (max-width: 600px) {
-  .hero-metrics {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(204, 0, 0, 0.08);
+/* ============================================ */
+/* ===== МОБИЛЬНЫЙ ФОН С КРУГАМИ ДЛЯ 430px И МЕНЬШЕ ===== */
+/* ============================================ */
+
+@media (max-width: 430px) {
+  /* Увеличиваем размеры и насыщенность кругов для маленьких экранов */
+  .hero-section::before {
+    width: 250px !important;
+    height: 250px !important;
+    top: -80px !important;
+    right: -80px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.20) 0%, rgba(204, 0, 0, 0.08) 30%, transparent 70%) !important;
   }
-  .metric {
-    min-width: 0;
-    width: 100%;
-    align-items: center;
-    text-align: center;
-    padding: 14px 10px;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 12px;
-    border: 1px solid rgba(204, 0, 0, 0.05);
-    flex: 1;
+
+  .hero-section::after {
+    width: 200px !important;
+    height: 200px !important;
+    bottom: -60px !important;
+    left: -60px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.18) 0%, rgba(204, 0, 0, 0.06) 30%, transparent 70%) !important;
   }
-  .metric-value { font-size: 22px; }
-  .metric-label { font-size: 9px; letter-spacing: 0.3px; }
+
+  .services-section::before {
+    width: 180px !important;
+    height: 180px !important;
+    right: -40px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.18) 0%, rgba(204, 0, 0, 0.06) 30%, transparent 70%) !important;
+  }
+
+  .services-section::after {
+    width: 140px !important;
+    height: 140px !important;
+    left: -50px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.15) 0%, rgba(204, 0, 0, 0.05) 30%, transparent 70%) !important;
+  }
+
+  .offers-section::before {
+    width: 120px !important;
+    height: 120px !important;
+    right: -30px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.18) 0%, rgba(204, 0, 0, 0.06) 30%, transparent 70%) !important;
+  }
+
+  .solutions-section::before {
+    width: 180px !important;
+    height: 180px !important;
+    left: -30px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.17) 0%, rgba(204, 0, 0, 0.06) 30%, transparent 70%) !important;
+  }
+
+  .stats-section::before {
+    width: 150px !important;
+    height: 150px !important;
+    right: -40px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.19) 0%, rgba(204, 0, 0, 0.06) 30%, transparent 70%) !important;
+  }
+
+  .prices-section::before {
+    width: 130px !important;
+    height: 130px !important;
+    left: -30px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.17) 0%, rgba(204, 0, 0, 0.05) 30%, transparent 70%) !important;
+  }
+
+  .calculator-section::before {
+    width: 100px !important;
+    height: 100px !important;
+    right: -25px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.20) 0%, rgba(204, 0, 0, 0.07) 30%, transparent 70%) !important;
+  }
+
+  .managers-section::before {
+    width: 90px !important;
+    height: 90px !important;
+    right: -20px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.20) 0%, rgba(204, 0, 0, 0.07) 30%, transparent 70%) !important;
+  }
+
+  .form-section::before {
+    width: 100px !important;
+    height: 100px !important;
+    left: -20px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.18) 0%, rgba(204, 0, 0, 0.06) 30%, transparent 70%) !important;
+  }
 }
 
-@media (max-width: 480px) {
-  .hero-metrics {
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    padding-top: 16px;
-  }
-  .metric { padding: 12px 8px; }
-  .metric-value { font-size: 20px; }
-  .metric-label { font-size: 8px; letter-spacing: 0.2px; }
+/* ============================================ */
+/* ===== СПЕЦИАЛЬНО ДЛЯ 367px И МЕНЬШЕ ===== */
+/* ============================================ */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+.site-full {
+  width: 100%;
+  min-height: 100vh;
+  background: #ffffff;
+  overflow-x: hidden;
+  position: relative;
 }
 
-@media (max-width: 380px) {
-  .hero-metrics {
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    padding-top: 12px;
-  }
-  .metric { padding: 10px 6px; border-radius: 8px; }
-  .metric-value { font-size: 17px; }
-  .metric-label { font-size: 7px; letter-spacing: 0; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 30px; position: relative; z-index: 1; }
+
+/* ============================================ */
+/* ===== ФОНОВЫЕ ЭЛЕМЕНТЫ ===== */
+/* ============================================ */
+
+.wave {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.08;
+  animation: waveFloat 8s ease-in-out infinite;
 }
 
-/* SERVICES GRID */
+.wave-1 { width: 500px; height: 500px; background: #cc0000; top: -200px; right: -100px; }
+.wave-2 { width: 350px; height: 350px; background: #cc0000; bottom: -100px; left: -80px; animation-delay: 2s; }
+.wave-3 { width: 250px; height: 250px; background: #cc0000; top: 40%; right: 30%; animation-delay: 4s; opacity: 0.05; }
+
+@keyframes waveFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(40px, -40px) scale(1.1); }
+  66% { transform: translate(-30px, 30px) scale(0.9); }
+}
+
+.glow {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(80px);
+  animation: glowPulse 6s ease-in-out infinite;
+}
+
+.glow-1 { width: 400px; height: 400px; background: rgba(204, 0, 0, 0.12); top: 10%; right: 5%; }
+.glow-2 { width: 300px; height: 300px; background: rgba(204, 0, 0, 0.08); bottom: 20%; left: -50px; animation-delay: 2s; }
+.glow-3 { width: 200px; height: 200px; background: rgba(204, 0, 0, 0.15); top: 50%; left: 20%; animation-delay: 4s; }
+
+@keyframes glowPulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.2); opacity: 1; }
+}
+
+.line-group {
+  position: absolute;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  opacity: 0.06;
+}
+
+.line-item {
+  display: block;
+  width: 80px;
+  height: 2px;
+  background: #cc0000;
+  border-radius: 2px;
+  animation: lineSlide 4s ease-in-out infinite;
+}
+.line-item:nth-child(2) { width: 120px; animation-delay: 0.5s; }
+.line-item:nth-child(3) { width: 60px; animation-delay: 1s; }
+.line-item:nth-child(4) { width: 100px; animation-delay: 1.5s; }
+.line-item:nth-child(5) { width: 140px; animation-delay: 2s; }
+
+@keyframes lineSlide {
+  0%, 100% { transform: translateX(0); opacity: 0.3; }
+  50% { transform: translateX(20px); opacity: 1; }
+}
+
+.dot-pattern {
+  position: absolute;
+  pointer-events: none;
+  background-image:
+      radial-gradient(circle, rgba(204, 0, 0, 0.06) 2px, transparent 2px),
+      radial-gradient(circle, rgba(204, 0, 0, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px, 20px 20px;
+  background-position: 0 0, 20px 20px;
+  opacity: 0.5;
+  animation: patternFloat 20s linear infinite;
+}
+
+@keyframes patternFloat {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(40px, 40px); }
+}
+
+/* ============================================ */
+/* ===== HERO ===== */
+/* ============================================ */
+
+.hero-section {
+  padding: 80px 0 60px;
+  background: linear-gradient(135deg, #fef5f5 0%, #ffffff 50%, #fef0f0 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+.hero-bg .line-group { top: 15%; right: 8%; }
+.hero-bg .dot-pattern { top: 20%; left: 5%; width: 300px; height: 300px; }
+
+/* ============================================ */
+/* ===== СЕКЦИИ ===== */
+/* ============================================ */
+
+.section-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.services-section,
+.offers-section,
+.solutions-section,
+.stats-section,
+.prices-section,
+.calculator-section,
+.managers-section,
+.form-section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ----- SERVICES ----- */
+.services-section { padding: 80px 0; background: #ffffff; }
+.services-section .wave-s-1 { width: 300px; height: 300px; background: #cc0000; top: 10%; right: -50px; opacity: 0.06; animation-delay: 1s; }
+.services-section .wave-s-2 { width: 200px; height: 200px; background: #cc0000; bottom: 5%; left: -30px; opacity: 0.08; animation-delay: 3s; }
+.services-section .glow-s-1 { width: 250px; height: 250px; background: rgba(204, 0, 0, 0.08); top: 30%; left: -40px; animation-delay: 1s; }
+.services-section .glow-s-2 { width: 200px; height: 200px; background: rgba(204, 0, 0, 0.06); bottom: 20%; right: 10%; animation-delay: 3s; }
+.services-section .line-group-s { top: 25%; left: 5%; }
+
+/* ----- OFFERS ----- */
+.offers-section { padding: 80px 0; background: #f8f6f5; }
+.offers-section .wave-o-1 { width: 350px; height: 350px; background: #cc0000; bottom: -80px; right: -80px; opacity: 0.06; animation-delay: 2s; }
+.offers-section .wave-o-2 { width: 200px; height: 200px; background: #cc0000; top: 10%; left: -40px; opacity: 0.08; animation-delay: 4s; }
+.offers-section .glow-o-1 { width: 300px; height: 300px; background: rgba(204, 0, 0, 0.07); top: 20%; right: 10%; animation-delay: 1s; }
+.offers-section .glow-o-2 { width: 200px; height: 200px; background: rgba(204, 0, 0, 0.09); bottom: 30%; left: 5%; animation-delay: 3s; }
+.offers-section .dot-pattern-o { top: 30%; right: 5%; width: 250px; height: 250px; }
+
+/* ----- SOLUTIONS ----- */
+.solutions-section { padding: 80px 0; background: #ffffff; }
+.solutions-section .wave-sol-1 { width: 280px; height: 280px; background: #cc0000; top: 15%; right: -40px; opacity: 0.06; animation-delay: 1.5s; }
+.solutions-section .glow-sol-1 { width: 220px; height: 220px; background: rgba(204, 0, 0, 0.08); bottom: 10%; left: -30px; animation-delay: 2s; }
+.solutions-section .glow-sol-2 { width: 180px; height: 180px; background: rgba(204, 0, 0, 0.10); top: 40%; right: 15%; animation-delay: 4s; }
+.solutions-section .line-group-sol { top: 20%; right: 5%; }
+
+/* ----- STATS ----- */
+.stats-section { padding: 80px 0; background: #f8f6f5; }
+.stats-section .wave-st-1 { width: 320px; height: 320px; background: #cc0000; top: -60px; left: -60px; opacity: 0.06; animation-delay: 1s; }
+.stats-section .wave-st-2 { width: 220px; height: 220px; background: #cc0000; bottom: 10%; right: 5%; opacity: 0.08; animation-delay: 3s; }
+.stats-section .glow-st-1 { width: 280px; height: 280px; background: rgba(204, 0, 0, 0.07); top: 30%; right: 10%; animation-delay: 1s; }
+.stats-section .glow-st-2 { width: 200px; height: 200px; background: rgba(204, 0, 0, 0.09); bottom: 20%; left: 5%; animation-delay: 3s; }
+.stats-section .dot-pattern-st { top: 15%; left: 10%; width: 280px; height: 280px; }
+
+/* ----- PRICES ----- */
+.prices-section { padding: 80px 0; background: #ffffff; }
+.prices-section .wave-p-1 { width: 250px; height: 250px; background: #cc0000; bottom: -50px; right: -30px; opacity: 0.07; animation-delay: 2s; }
+.prices-section .glow-p-1 { width: 200px; height: 200px; background: rgba(204, 0, 0, 0.08); top: 20%; left: -20px; animation-delay: 1s; }
+.prices-section .glow-p-2 { width: 220px; height: 220px; background: rgba(204, 0, 0, 0.06); bottom: 30%; right: 10%; animation-delay: 3s; }
+.prices-section .line-group-p { top: 15%; left: 5%; }
+
+/* ----- CALCULATOR ----- */
+.calculator-section { padding: 80px 0; background: #f8f6f5; }
+.calculator-section .wave-c-1 { width: 300px; height: 300px; background: #cc0000; top: -80px; right: -50px; opacity: 0.06; animation-delay: 1s; }
+.calculator-section .wave-c-2 { width: 200px; height: 200px; background: #cc0000; bottom: 10%; left: -40px; opacity: 0.08; animation-delay: 3s; }
+.calculator-section .glow-c-1 { width: 250px; height: 250px; background: rgba(204, 0, 0, 0.07); top: 25%; right: 10%; animation-delay: 1s; }
+.calculator-section .glow-c-2 { width: 180px; height: 180px; background: rgba(204, 0, 0, 0.10); bottom: 20%; left: 10%; animation-delay: 3s; }
+.calculator-section .glow-c-3 { width: 150px; height: 150px; background: rgba(204, 0, 0, 0.12); top: 50%; right: 30%; animation-delay: 5s; }
+.calculator-section .dot-pattern-c { top: 30%; left: 5%; width: 250px; height: 250px; }
+
+/* ----- MANAGERS ----- */
+.managers-section { padding: 80px 0; background: #ffffff; }
+.managers-section .wave-m-1 { width: 280px; height: 280px; background: #cc0000; bottom: -60px; right: -40px; opacity: 0.06; animation-delay: 2s; }
+.managers-section .glow-m-1 { width: 200px; height: 200px; background: rgba(204, 0, 0, 0.08); top: 15%; left: -30px; animation-delay: 1s; }
+.managers-section .glow-m-2 { width: 220px; height: 220px; background: rgba(204, 0, 0, 0.06); bottom: 25%; right: 10%; animation-delay: 3s; }
+.managers-section .line-group-m { top: 30%; right: 5%; }
+
+/* ----- FORM ----- */
+.form-section { padding: 80px 0; background: #f8f6f5; }
+.form-section .wave-f-1 { width: 350px; height: 350px; background: #cc0000; top: -100px; left: -80px; opacity: 0.05; animation-delay: 1s; }
+.form-section .wave-f-2 { width: 250px; height: 250px; background: #cc0000; bottom: 10%; right: -50px; opacity: 0.07; animation-delay: 3s; }
+.form-section .glow-f-1 { width: 300px; height: 300px; background: rgba(204, 0, 0, 0.07); top: 20%; right: 10%; animation-delay: 1s; }
+.form-section .glow-f-2 { width: 200px; height: 200px; background: rgba(204, 0, 0, 0.09); bottom: 30%; left: 5%; animation-delay: 3s; }
+.form-section .glow-f-3 { width: 180px; height: 180px; background: rgba(204, 0, 0, 0.12); top: 45%; left: 25%; animation-delay: 5s; }
+.form-section .dot-pattern-f { top: 10%; right: 5%; width: 300px; height: 300px; }
+
+/* ============================================ */
+/* ===== ОБЩИЕ СТИЛИ ===== */
+/* ============================================ */
+
+.section-tag {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #cc0000;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.section-head { text-align: center; margin-bottom: 50px; }
+.section-title { font-size: 38px; font-weight: 300; color: #1a1a1a; letter-spacing: -0.5px; }
+.section-title span { color: #cc0000; font-weight: 600; }
+
+/* BUTTONS */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 36px;
+  background: #cc0000;
+  color: #fff;
+  border: none;
+  border-radius: 40px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.3px;
+}
+.btn-primary:hover { background: #b30000; transform: translateY(-2px); box-shadow: 0 12px 30px rgba(204, 0, 0, 0.2); }
+.btn-primary.full { width: 100%; justify-content: center; }
+.btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.btn-secondary {
+  padding: 14px 36px;
+  background: transparent;
+  color: #1a1a1a;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 40px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-secondary:hover { border-color: #cc0000; color: #cc0000; }
+
+.btn-outline {
+  padding: 12px 32px;
+  background: transparent;
+  color: #1a1a1a;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 40px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-outline:hover { border-color: #cc0000; color: #cc0000; }
+
+/* HERO CONTENT */
+.hero-content { position: relative; z-index: 1; }
+.hero-label { font-size: 12px; letter-spacing: 4px; color: #999; text-transform: uppercase; margin-bottom: 16px; }
+.hero-title { font-size: 64px; font-weight: 300; letter-spacing: 4px; line-height: 1.1; margin-bottom: 16px; }
+.title-light { color: #cc0000; font-weight: 700; }
+.title-bold { color: #1a1a1a; font-weight: 700; }
+.hero-desc { font-size: 16px; color: #888; max-width: 500px; line-height: 1.6; margin-bottom: 32px; letter-spacing: 0.3px; }
+.hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 50px; }
+
+/* ============================================ */
+/* ===== HERO METRICS ===== */
+/* ============================================ */
+
+.hero-metrics {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  border-top: 1px solid #f0f0f0;
+  padding-top: 30px;
+  justify-content: space-between;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1 1 0;
+  min-width: 140px;
+}
+
+.metric-value {
+  display: block;
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a1a1a;
+  letter-spacing: 1px;
+  line-height: 1.2;
+}
+
+.metric-label {
+  font-size: 11px;
+  color: #999;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 4px;
+  line-height: 1.3;
+}
+
+/* ============================================ */
+/* ===== SERVICES GRID ===== */
+/* ============================================ */
+
 .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .service-card {
   padding: 30px 24px;
@@ -1299,7 +1762,10 @@ onUnmounted(() => { if (starInterval) clearInterval(starInterval) })
 .service-link { background: none; border: none; color: #cc0000; font-size: 14px; font-weight: 500; cursor: pointer; padding: 0; transition: all 0.3s ease; }
 .service-link:hover { transform: translateX(4px); }
 
-/* OFFERS GRID */
+/* ============================================ */
+/* ===== OFFERS GRID ===== */
+/* ============================================ */
+
 .offers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
 .offer-card {
   padding: 36px;
@@ -1317,7 +1783,10 @@ onUnmounted(() => { if (starInterval) clearInterval(starInterval) })
 .offer-btn { background: none; border: none; color: #cc0000; font-size: 14px; font-weight: 500; cursor: pointer; padding: 0; transition: all 0.3s ease; }
 .offer-btn:hover { transform: translateX(4px); }
 
-/* SOLUTIONS GRID */
+/* ============================================ */
+/* ===== SOLUTIONS GRID ===== */
+/* ============================================ */
+
 .solutions-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 32px; }
 .solution-item {
   text-align: center;
@@ -1337,7 +1806,10 @@ onUnmounted(() => { if (starInterval) clearInterval(starInterval) })
 .bonus { font-size: 14px; color: #888; letter-spacing: 0.3px; }
 .bonus:first-child { color: #cc0000; }
 
-/* STATS GRID */
+/* ============================================ */
+/* ===== STATS GRID ===== */
+/* ============================================ */
+
 .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 40px; }
 .stat-block {
   text-align: center;
@@ -1353,7 +1825,10 @@ onUnmounted(() => { if (starInterval) clearInterval(starInterval) })
 .stats-text { text-align: center; max-width: 700px; margin: 0 auto; position: relative; z-index: 1; }
 .stats-text p { color: #888; font-size: 16px; line-height: 1.8; margin-bottom: 20px; }
 
-/* PRICES GRID */
+/* ============================================ */
+/* ===== PRICES GRID ===== */
+/* ============================================ */
+
 .prices-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; }
 .price-card {
   padding: 20px 16px;
@@ -1382,7 +1857,10 @@ onUnmounted(() => { if (starInterval) clearInterval(starInterval) })
 }
 .price-btn:hover { border-color: #cc0000; color: #cc0000; }
 
-/* CALCULATOR */
+/* ============================================ */
+/* ===== CALCULATOR ===== */
+/* ============================================ */
+
 .calculator-box {
   background: #ffffff;
   border-radius: 16px;
@@ -1449,7 +1927,10 @@ onUnmounted(() => { if (starInterval) clearInterval(starInterval) })
 .calc-total span:first-child { font-size: 18px; font-weight: 500; color: #1a1a1a; }
 .total-amount { font-size: 28px; font-weight: 700; color: #cc0000; }
 
-/* MANAGERS GRID */
+/* ============================================ */
+/* ===== MANAGERS GRID ===== */
+/* ============================================ */
+
 .managers-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
 .manager-card {
   text-align: center;
@@ -1480,7 +1961,10 @@ onUnmounted(() => { if (starInterval) clearInterval(starInterval) })
 }
 .manager-btn:hover { border-color: #cc0000; color: #cc0000; }
 
-/* FORM */
+/* ============================================ */
+/* ===== FORM ===== */
+/* ============================================ */
+
 .form-wrapper {
   display: grid;
   grid-template-columns: 1fr 1.5fr;
@@ -1562,7 +2046,10 @@ onUnmounted(() => { if (starInterval) clearInterval(starInterval) })
 }
 .agree input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; }
 
-/* STARS */
+/* ============================================ */
+/* ===== STARS ===== */
+/* ============================================ */
+
 .star {
   position: fixed;
   width: 2px;
@@ -1579,15 +2066,74 @@ onUnmounted(() => { if (starInterval) clearInterval(starInterval) })
   50% { opacity: 0.4; }
   100% { opacity: 0; }
 }
+/* ============================================ */
+/* ===== УВЕЛИЧЕННАЯ ИКОНКА АВИТО ===== */
+/* ============================================ */
 
-/* ADAPTIVE */
+/* Для карточки услуги "Ведение Авито" (4-я карточка) */
+.service-card:nth-child(4) .service-icon img {
+  width: 72px !important;
+  height: 72px !important;
+}
+
+/* Для иконки Авито в секции "Решения" (3-й элемент) */
+.solution-item:nth-child(3) .solution-icon img {
+  width: 64px !important;
+  height: 64px !important;
+}
+
+/* ============================================ */
+/* ===== АДАПТИВ ДЛЯ МОБИЛЬНЫХ ===== */
+/* ============================================ */
+
+@media (max-width: 768px) {
+  .service-card:nth-child(4) .service-icon img {
+    width: 60px !important;
+    height: 60px !important;
+  }
+  .solution-item:nth-child(3) .solution-icon img {
+    width: 85px !important;
+    height: 85px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .service-card:nth-child(4) .service-icon img {
+    width: 85px !important;
+    height: 85px !important;
+  }
+  .solution-item:nth-child(3) .solution-icon img {
+    width: 85px !important;
+    height: 85px !important;
+  }
+}
+/* ============================================ */
+/* ===== АДАПТИВ 1024px ===== */
+/* ============================================ */
+
 @media (max-width: 1024px) {
+  .hero-metrics {
+    gap: 20px;
+    justify-content: center;
+  }
+  .metric {
+    min-width: 120px;
+    flex: 0 1 auto;
+    align-items: center;
+    text-align: center;
+  }
+  .metric-value { font-size: 28px; }
+  .metric-label { font-size: 10px; }
   .services-grid { grid-template-columns: repeat(2, 1fr); }
   .solutions-grid { grid-template-columns: repeat(2, 1fr); }
   .prices-grid { grid-template-columns: repeat(3, 1fr); }
   .managers-grid { grid-template-columns: repeat(3, 1fr); }
   .wave, .glow, .line-group, .dot-pattern { display: none; }
 }
+
+/* ============================================ */
+/* ===== АДАПТИВ 768px ===== */
+/* ============================================ */
 
 @media (max-width: 768px) {
   .hero-title { font-size: 40px; }
@@ -1607,7 +2153,478 @@ onUnmounted(() => { if (starInterval) clearInterval(starInterval) })
   .calc-tabs { gap: 6px; }
   .calc-tab { padding: 8px 14px; font-size: 12px; }
   .wave, .glow, .line-group, .dot-pattern { display: none; }
+
+  /* ===== МОБИЛЬНЫЙ ФОН С КРУГАМИ ===== */
+  .hero-section::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.15) 0%, rgba(204, 0, 0, 0.05) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 8s ease-in-out infinite;
+  }
+
+  .hero-section::after {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    left: -80px;
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.12) 0%, rgba(204, 0, 0, 0.04) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 10s ease-in-out infinite reverse;
+  }
+
+  .services-section::before {
+    content: '';
+    position: absolute;
+    top: 20%;
+    right: -60px;
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.12) 0%, rgba(204, 0, 0, 0.04) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 7s ease-in-out infinite;
+  }
+
+  .services-section::after {
+    content: '';
+    position: absolute;
+    bottom: 10%;
+    left: -70px;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.10) 0%, rgba(204, 0, 0, 0.03) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 9s ease-in-out infinite reverse;
+  }
+
+  .offers-section::before {
+    content: '';
+    position: absolute;
+    top: 30%;
+    right: -50px;
+    width: 160px;
+    height: 160px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.12) 0%, rgba(204, 0, 0, 0.04) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 6s ease-in-out infinite;
+  }
+
+  .solutions-section::before {
+    content: '';
+    position: absolute;
+    top: 15%;
+    left: -40px;
+    width: 240px;
+    height: 240px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.12) 0%, rgba(204, 0, 0, 0.04) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 11s ease-in-out infinite;
+  }
+
+  .stats-section::before {
+    content: '';
+    position: absolute;
+    bottom: 20%;
+    right: -60px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.13) 0%, rgba(204, 0, 0, 0.04) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 8s ease-in-out infinite reverse;
+  }
+
+  .prices-section::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: -50px;
+    width: 170px;
+    height: 170px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.12) 0%, rgba(204, 0, 0, 0.04) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 7s ease-in-out infinite;
+  }
+
+  .calculator-section::before {
+    content: '';
+    position: absolute;
+    bottom: 30%;
+    right: -40px;
+    width: 140px;
+    height: 140px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.14) 0%, rgba(204, 0, 0, 0.05) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 5s ease-in-out infinite;
+  }
+
+  .managers-section::before {
+    content: '';
+    position: absolute;
+    top: 20%;
+    right: -30px;
+    width: 110px;
+    height: 110px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.15) 0%, rgba(204, 0, 0, 0.05) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 4s ease-in-out infinite;
+  }
+
+  .form-section::before {
+    content: '';
+    position: absolute;
+    bottom: 10%;
+    left: -30px;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.13) 0%, rgba(204, 0, 0, 0.04) 40%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 6s ease-in-out infinite reverse;
+  }
+
+  @keyframes floatCircle {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(10px, -15px) scale(1.05); }
+    50% { transform: translate(-5px, 10px) scale(0.95); }
+    75% { transform: translate(15px, 5px) scale(1.02); }
+  }
 }
+
+/* ============================================ */
+/* ===== АДАПТИВ 430px ===== */
+/* ============================================ */
+
+@media (max-width: 430px) {
+  .hero-section::before {
+    width: 250px !important;
+    height: 250px !important;
+    top: -80px !important;
+    right: -80px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.20) 0%, rgba(204, 0, 0, 0.08) 30%, transparent 70%) !important;
+  }
+
+  .hero-section::after {
+    width: 200px !important;
+    height: 200px !important;
+    bottom: -60px !important;
+    left: -60px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.18) 0%, rgba(204, 0, 0, 0.06) 30%, transparent 70%) !important;
+  }
+
+  .services-section::before {
+    width: 180px !important;
+    height: 180px !important;
+    right: -40px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.18) 0%, rgba(204, 0, 0, 0.06) 30%, transparent 70%) !important;
+  }
+
+  .services-section::after {
+    width: 140px !important;
+    height: 140px !important;
+    left: -50px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.15) 0%, rgba(204, 0, 0, 0.05) 30%, transparent 70%) !important;
+  }
+
+  .offers-section::before {
+    width: 120px !important;
+    height: 120px !important;
+    right: -30px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.18) 0%, rgba(204, 0, 0, 0.06) 30%, transparent 70%) !important;
+  }
+
+  .solutions-section::before {
+    width: 180px !important;
+    height: 180px !important;
+    left: -30px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.17) 0%, rgba(204, 0, 0, 0.06) 30%, transparent 70%) !important;
+  }
+
+  .stats-section::before {
+    width: 150px !important;
+    height: 150px !important;
+    right: -40px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.19) 0%, rgba(204, 0, 0, 0.06) 30%, transparent 70%) !important;
+  }
+
+  .prices-section::before {
+    width: 130px !important;
+    height: 130px !important;
+    left: -30px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.17) 0%, rgba(204, 0, 0, 0.05) 30%, transparent 70%) !important;
+  }
+
+  .calculator-section::before {
+    width: 100px !important;
+    height: 100px !important;
+    right: -25px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.20) 0%, rgba(204, 0, 0, 0.07) 30%, transparent 70%) !important;
+  }
+
+  .managers-section::before {
+    width: 90px !important;
+    height: 90px !important;
+    right: -20px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.20) 0%, rgba(204, 0, 0, 0.07) 30%, transparent 70%) !important;
+  }
+
+  .form-section::before {
+    width: 100px !important;
+    height: 100px !important;
+    left: -20px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.18) 0%, rgba(204, 0, 0, 0.06) 30%, transparent 70%) !important;
+  }
+
+  .hero-section {
+    background:
+        radial-gradient(circle at 85% 15%, rgba(204, 0, 0, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 15% 85%, rgba(204, 0, 0, 0.08) 0%, transparent 50%),
+        linear-gradient(135deg, #fef5f5 0%, #ffffff 50%, #fef0f0 100%) !important;
+  }
+
+  .services-section {
+    background:
+        radial-gradient(circle at 90% 30%, rgba(204, 0, 0, 0.10) 0%, transparent 45%),
+        radial-gradient(circle at 10% 80%, rgba(204, 0, 0, 0.07) 0%, transparent 45%),
+        #ffffff !important;
+  }
+
+  .offers-section {
+    background:
+        radial-gradient(circle at 85% 40%, rgba(204, 0, 0, 0.10) 0%, transparent 40%),
+        #f8f6f5 !important;
+  }
+
+  .solutions-section {
+    background:
+        radial-gradient(circle at 15% 30%, rgba(204, 0, 0, 0.10) 0%, transparent 45%),
+        #ffffff !important;
+  }
+
+  .stats-section {
+    background:
+        radial-gradient(circle at 85% 70%, rgba(204, 0, 0, 0.11) 0%, transparent 45%),
+        #f8f6f5 !important;
+  }
+
+  .prices-section {
+    background:
+        radial-gradient(circle at 15% 20%, rgba(204, 0, 0, 0.10) 0%, transparent 40%),
+        #ffffff !important;
+  }
+
+  .calculator-section {
+    background:
+        radial-gradient(circle at 85% 60%, rgba(204, 0, 0, 0.12) 0%, transparent 40%),
+        #f8f6f5 !important;
+  }
+
+  .managers-section {
+    background:
+        radial-gradient(circle at 85% 30%, rgba(204, 0, 0, 0.10) 0%, transparent 35%),
+        #ffffff !important;
+  }
+
+  .form-section {
+    background:
+        radial-gradient(circle at 15% 70%, rgba(204, 0, 0, 0.10) 0%, transparent 40%),
+        #f8f6f5 !important;
+  }
+}
+
+/* ============================================ */
+/* ===== СПЕЦИАЛЬНО ДЛЯ 380px И МЕНЬШЕ (367px) ===== */
+/* ============================================ */
+
+@media (max-width: 380px) {
+  /* ГЛАВНЫЙ ГЕРОЙ — самые яркие и крупные круги */
+  .hero-section::before {
+    width: 220px !important;
+    height: 220px !important;
+    top: -70px !important;
+    right: -60px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.30) 0%, rgba(204, 0, 0, 0.15) 30%, rgba(204, 0, 0, 0.05) 60%, transparent 80%) !important;
+    opacity: 1 !important;
+    animation-duration: 6s !important;
+  }
+
+  .hero-section::after {
+    width: 180px !important;
+    height: 180px !important;
+    bottom: -60px !important;
+    left: -50px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.28) 0%, rgba(204, 0, 0, 0.12) 30%, rgba(204, 0, 0, 0.04) 60%, transparent 80%) !important;
+    opacity: 1 !important;
+    animation-duration: 8s !important;
+  }
+
+  /* УСЛУГИ */
+  .services-section::before {
+    width: 160px !important;
+    height: 160px !important;
+    right: -35px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.28) 0%, rgba(204, 0, 0, 0.12) 30%, rgba(204, 0, 0, 0.04) 60%, transparent 80%) !important;
+    opacity: 1 !important;
+  }
+
+  .services-section::after {
+    width: 120px !important;
+    height: 120px !important;
+    left: -40px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.24) 0%, rgba(204, 0, 0, 0.10) 30%, rgba(204, 0, 0, 0.04) 60%, transparent 80%) !important;
+    opacity: 1 !important;
+  }
+
+  /* ПРЕДЛОЖЕНИЯ */
+  .offers-section::before {
+    width: 100px !important;
+    height: 100px !important;
+    right: -25px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.26) 0%, rgba(204, 0, 0, 0.10) 30%, rgba(204, 0, 0, 0.04) 60%, transparent 80%) !important;
+    opacity: 1 !important;
+  }
+
+  /* РЕШЕНИЯ */
+  .solutions-section::before {
+    width: 160px !important;
+    height: 160px !important;
+    left: -30px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.26) 0%, rgba(204, 0, 0, 0.10) 30%, rgba(204, 0, 0, 0.04) 60%, transparent 80%) !important;
+    opacity: 1 !important;
+  }
+
+  /* ЦИФРЫ */
+  .stats-section::before {
+    width: 130px !important;
+    height: 130px !important;
+    right: -35px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.28) 0%, rgba(204, 0, 0, 0.12) 30%, rgba(204, 0, 0, 0.04) 60%, transparent 80%) !important;
+    opacity: 1 !important;
+  }
+
+  /* ЦЕНЫ */
+  .prices-section::before {
+    width: 110px !important;
+    height: 110px !important;
+    left: -25px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.24) 0%, rgba(204, 0, 0, 0.10) 30%, rgba(204, 0, 0, 0.04) 60%, transparent 80%) !important;
+    opacity: 1 !important;
+  }
+
+  /* КАЛЬКУЛЯТОР */
+  .calculator-section::before {
+    width: 90px !important;
+    height: 90px !important;
+    right: -20px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.30) 0%, rgba(204, 0, 0, 0.14) 30%, rgba(204, 0, 0, 0.05) 60%, transparent 80%) !important;
+    opacity: 1 !important;
+  }
+
+  /* МЕНЕДЖЕРЫ */
+  .managers-section::before {
+    width: 80px !important;
+    height: 80px !important;
+    right: -15px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.30) 0%, rgba(204, 0, 0, 0.14) 30%, rgba(204, 0, 0, 0.05) 60%, transparent 80%) !important;
+    opacity: 1 !important;
+  }
+
+  /* ФОРМА */
+  .form-section::before {
+    width: 85px !important;
+    height: 85px !important;
+    left: -18px !important;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.28) 0%, rgba(204, 0, 0, 0.12) 30%, rgba(204, 0, 0, 0.04) 60%, transparent 80%) !important;
+    opacity: 1 !important;
+  }
+
+  /* УСИЛЕННЫЙ БЭКГРАУНД ДЛЯ 380px */
+  .hero-section {
+    background:
+        radial-gradient(circle at 80% 15%, rgba(204, 0, 0, 0.18) 0%, transparent 50%),
+        radial-gradient(circle at 20% 85%, rgba(204, 0, 0, 0.14) 0%, transparent 50%),
+        linear-gradient(135deg, #fef5f5 0%, #ffffff 50%, #fef0f0 100%) !important;
+  }
+
+  .services-section {
+    background:
+        radial-gradient(circle at 90% 30%, rgba(204, 0, 0, 0.16) 0%, transparent 45%),
+        radial-gradient(circle at 10% 80%, rgba(204, 0, 0, 0.12) 0%, transparent 45%),
+        #ffffff !important;
+  }
+
+  .offers-section {
+    background:
+        radial-gradient(circle at 85% 40%, rgba(204, 0, 0, 0.16) 0%, transparent 40%),
+        #f8f6f5 !important;
+  }
+
+  .solutions-section {
+    background:
+        radial-gradient(circle at 15% 30%, rgba(204, 0, 0, 0.16) 0%, transparent 45%),
+        #ffffff !important;
+  }
+
+  .stats-section {
+    background:
+        radial-gradient(circle at 85% 70%, rgba(204, 0, 0, 0.17) 0%, transparent 45%),
+        #f8f6f5 !important;
+  }
+
+  .prices-section {
+    background:
+        radial-gradient(circle at 15% 20%, rgba(204, 0, 0, 0.16) 0%, transparent 40%),
+        #ffffff !important;
+  }
+
+  .calculator-section {
+    background:
+        radial-gradient(circle at 85% 60%, rgba(204, 0, 0, 0.18) 0%, transparent 40%),
+        #f8f6f5 !important;
+  }
+
+  .managers-section {
+    background:
+        radial-gradient(circle at 85% 30%, rgba(204, 0, 0, 0.16) 0%, transparent 35%),
+        #ffffff !important;
+  }
+
+  .form-section {
+    background:
+        radial-gradient(circle at 15% 70%, rgba(204, 0, 0, 0.16) 0%, transparent 40%),
+        #f8f6f5 !important;
+  }
+}
+
+/* ============================================ */
+/* ===== АДАПТИВ 480px ===== */
+/* ============================================ */
 
 @media (max-width: 480px) {
   .hero-title { font-size: 30px; letter-spacing: 2px; }
@@ -1629,341 +2646,29 @@ onUnmounted(() => { if (starInterval) clearInterval(starInterval) })
 }
 
 /* ============================================ */
-/* ===== МОБИЛЬНЫЙ ФОН С КРУГАМИ ===== */
+/* ===== АДАПТИВ 600px (METRICS) ===== */
 /* ============================================ */
 
-@media (max-width: 768px) {
-  .hero-title { font-size: 40px; }
-  .services-grid { grid-template-columns: 1fr; }
-  .offers-grid { grid-template-columns: 1fr; gap: 20px; }
-  .solutions-grid { grid-template-columns: 1fr 1fr; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .prices-grid { grid-template-columns: repeat(2, 1fr); }
-  .managers-grid { grid-template-columns: repeat(2, 1fr); }
-  .form-wrapper { grid-template-columns: 1fr; gap: 30px; padding: 24px; }
-  .field-group { grid-template-columns: 1fr; }
-  .section-title { font-size: 28px; }
-  .bonus-list { gap: 20px; }
-  .calculator-box { padding: 20px; }
-  .calc-item { flex-wrap: wrap; gap: 10px; }
-  .calc-price { min-width: 80px; }
-  .calc-tabs { gap: 6px; }
-  .calc-tab { padding: 8px 14px; font-size: 12px; }
-  /* Убираем display: none для кругов, оставляем только для старых элементов */
-  .wave, .glow, .line-group, .dot-pattern { display: none; }
-
-  /* ===== МОБИЛЬНЫЙ ФОН С КРУГАМИ ===== */
-  /* Красные круги на фоне для мобильной версии */
-  .hero-section::before {
-    content: '';
-    position: absolute;
-    top: -100px;
-    right: -100px;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(204, 0, 0, 0.08) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
-    animation: floatCircle 8s ease-in-out infinite;
+@media (max-width: 600px) {
+  .hero-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(204, 0, 0, 0.08);
   }
-
-  .hero-section::after {
-    content: '';
-    position: absolute;
-    bottom: -80px;
-    left: -80px;
-    width: 250px;
-    height: 250px;
-    background: radial-gradient(circle, rgba(204, 0, 0, 0.06) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
-    animation: floatCircle 10s ease-in-out infinite reverse;
+  .metric {
+    min-width: 0;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    padding: 14px 10px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 12px;
+    border: 1px solid rgba(204, 0, 0, 0.05);
+    flex: 1;
   }
-
-  .services-section::before {
-    content: '';
-    position: absolute;
-    top: 20%;
-    right: -50px;
-    width: 180px;
-    height: 180px;
-    background: radial-gradient(circle, rgba(204, 0, 0, 0.07) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
-    animation: floatCircle 7s ease-in-out infinite;
-  }
-
-  .services-section::after {
-    content: '';
-    position: absolute;
-    bottom: 10%;
-    left: -60px;
-    width: 150px;
-    height: 150px;
-    background: radial-gradient(circle, rgba(204, 0, 0, 0.05) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
-    animation: floatCircle 9s ease-in-out infinite reverse;
-  }
-
-  .offers-section::before {
-    content: '';
-    position: absolute;
-    top: 30%;
-    right: -40px;
-    width: 120px;
-    height: 120px;
-    background: radial-gradient(circle, rgba(204, 0, 0, 0.06) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
-    animation: floatCircle 6s ease-in-out infinite;
-  }
-
-  .solutions-section::before {
-    content: '';
-    position: absolute;
-    top: 15%;
-    left: -30px;
-    width: 200px;
-    height: 200px;
-    background: radial-gradient(circle, rgba(204, 0, 0, 0.06) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
-    animation: floatCircle 11s ease-in-out infinite;
-  }
-
-  .stats-section::before {
-    content: '';
-    position: absolute;
-    bottom: 20%;
-    right: -50px;
-    width: 160px;
-    height: 160px;
-    background: radial-gradient(circle, rgba(204, 0, 0, 0.07) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
-    animation: floatCircle 8s ease-in-out infinite reverse;
-  }
-
-  .prices-section::before {
-    content: '';
-    position: absolute;
-    top: 10%;
-    left: -40px;
-    width: 140px;
-    height: 140px;
-    background: radial-gradient(circle, rgba(204, 0, 0, 0.06) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
-    animation: floatCircle 7s ease-in-out infinite;
-  }
-
-  .calculator-section::before {
-    content: '';
-    position: absolute;
-    bottom: 30%;
-    right: -30px;
-    width: 100px;
-    height: 100px;
-    background: radial-gradient(circle, rgba(204, 0, 0, 0.08) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
-    animation: floatCircle 5s ease-in-out infinite;
-  }
-
-  .managers-section::before {
-    content: '';
-    position: absolute;
-    top: 20%;
-    right: -20px;
-    width: 80px;
-    height: 80px;
-    background: radial-gradient(circle, rgba(204, 0, 0, 0.09) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
-    animation: floatCircle 4s ease-in-out infinite;
-  }
-
-  .form-section::before {
-    content: '';
-    position: absolute;
-    bottom: 10%;
-    left: -20px;
-    width: 90px;
-    height: 90px;
-    background: radial-gradient(circle, rgba(204, 0, 0, 0.07) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
-    animation: floatCircle 6s ease-in-out infinite reverse;
-  }
-
-  /* Анимация плавающих кругов */
-  @keyframes floatCircle {
-    0%, 100% {
-      transform: translate(0, 0) scale(1);
-    }
-    25% {
-      transform: translate(10px, -15px) scale(1.05);
-    }
-    50% {
-      transform: translate(-5px, 10px) scale(0.95);
-    }
-    75% {
-      transform: translate(15px, 5px) scale(1.02);
-    }
-  }
-}
-/* ============================================ */
-/* ===== МОБИЛЬНЫЙ ФОН С КРУГАМИ ДЛЯ 375px ===== */
-/* ============================================ */
-
-@media (max-width: 430px) {
-  /* Уменьшаем круги для маленьких экранов */
-  .hero-section::before {
-    width: 180px !important;
-    height: 180px !important;
-    top: -60px !important;
-    right: -60px !important;
-    opacity: 0.6;
-  }
-
-  .hero-section::after {
-    width: 150px !important;
-    height: 150px !important;
-    bottom: -50px !important;
-    left: -50px !important;
-    opacity: 0.5;
-  }
-
-  .services-section::before {
-    width: 120px !important;
-    height: 120px !important;
-    right: -30px !important;
-    opacity: 0.5;
-  }
-
-  .services-section::after {
-    width: 100px !important;
-    height: 100px !important;
-    left: -40px !important;
-    opacity: 0.4;
-  }
-
-  .offers-section::before {
-    width: 80px !important;
-    height: 80px !important;
-    right: -20px !important;
-    opacity: 0.5;
-  }
-
-  .solutions-section::before {
-    width: 130px !important;
-    height: 130px !important;
-    left: -20px !important;
-    opacity: 0.5;
-  }
-
-  .stats-section::before {
-    width: 100px !important;
-    height: 100px !important;
-    right: -30px !important;
-    opacity: 0.5;
-  }
-
-  .prices-section::before {
-    width: 90px !important;
-    height: 90px !important;
-    left: -20px !important;
-    opacity: 0.5;
-  }
-
-  .calculator-section::before {
-    width: 70px !important;
-    height: 70px !important;
-    right: -15px !important;
-    opacity: 0.6;
-  }
-
-  .managers-section::before {
-    width: 60px !important;
-    height: 60px !important;
-    right: -15px !important;
-    opacity: 0.6;
-  }
-
-  .form-section::before {
-    width: 65px !important;
-    height: 65px !important;
-    left: -15px !important;
-    opacity: 0.5;
-  }
-}
-@media (max-width: 430px) {
-  .hero-section {
-    background:
-        radial-gradient(circle at 85% 15%, rgba(204, 0, 0, 0.08) 0%, transparent 40%),
-        radial-gradient(circle at 15% 85%, rgba(204, 0, 0, 0.06) 0%, transparent 40%),
-        linear-gradient(135deg, #fef5f5 0%, #ffffff 50%, #fef0f0 100%) !important;
-  }
-
-  .services-section {
-    background:
-        radial-gradient(circle at 90% 30%, rgba(204, 0, 0, 0.06) 0%, transparent 35%),
-        radial-gradient(circle at 10% 80%, rgba(204, 0, 0, 0.04) 0%, transparent 35%),
-        #ffffff !important;
-  }
-
-  .offers-section {
-    background:
-        radial-gradient(circle at 85% 40%, rgba(204, 0, 0, 0.05) 0%, transparent 30%),
-        #f8f6f5 !important;
-  }
-
-  .solutions-section {
-    background:
-        radial-gradient(circle at 15% 30%, rgba(204, 0, 0, 0.05) 0%, transparent 35%),
-        #ffffff !important;
-  }
-
-  .stats-section {
-    background:
-        radial-gradient(circle at 85% 70%, rgba(204, 0, 0, 0.06) 0%, transparent 35%),
-        #f8f6f5 !important;
-  }
-
-  .prices-section {
-    background:
-        radial-gradient(circle at 15% 20%, rgba(204, 0, 0, 0.05) 0%, transparent 30%),
-        #ffffff !important;
-  }
-
-  .calculator-section {
-    background:
-        radial-gradient(circle at 85% 60%, rgba(204, 0, 0, 0.07) 0%, transparent 30%),
-        #f8f6f5 !important;
-  }
-
-  .managers-section {
-    background:
-        radial-gradient(circle at 85% 30%, rgba(204, 0, 0, 0.06) 0%, transparent 25%),
-        #ffffff !important;
-  }
-
-  .form-section {
-    background:
-        radial-gradient(circle at 15% 70%, rgba(204, 0, 0, 0.06) 0%, transparent 30%),
-        #f8f6f5 !important;
-  }
+  .metric-value { font-size: 22px; }
+  .metric-label { font-size: 9px; letter-spacing: 0.3px; }
 }
 </style>
