@@ -784,6 +784,7 @@ const createStars = () => {
 onMounted(() => { createStars() })
 onUnmounted(() => { if (starInterval) clearInterval(starInterval) })
 </script>
+
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -1528,5 +1529,344 @@ onUnmounted(() => { if (starInterval) clearInterval(starInterval) })
   .calc-total { flex-wrap: wrap; justify-content: center; gap: 12px; }
   .total-amount { font-size: 22px; }
   .calc-item { padding: 12px; }
+}
+
+/* ============================================ */
+/* ===== МОБИЛЬНЫЙ ФОН С КРУГАМИ ===== */
+/* ============================================ */
+
+@media (max-width: 768px) {
+  .hero-title { font-size: 40px; }
+  .services-grid { grid-template-columns: 1fr; }
+  .offers-grid { grid-template-columns: 1fr; gap: 20px; }
+  .solutions-grid { grid-template-columns: 1fr 1fr; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .prices-grid { grid-template-columns: repeat(2, 1fr); }
+  .managers-grid { grid-template-columns: repeat(2, 1fr); }
+  .form-wrapper { grid-template-columns: 1fr; gap: 30px; padding: 24px; }
+  .field-group { grid-template-columns: 1fr; }
+  .section-title { font-size: 28px; }
+  .bonus-list { gap: 20px; }
+  .calculator-box { padding: 20px; }
+  .calc-item { flex-wrap: wrap; gap: 10px; }
+  .calc-price { min-width: 80px; }
+  .calc-tabs { gap: 6px; }
+  .calc-tab { padding: 8px 14px; font-size: 12px; }
+  /* Убираем display: none для кругов, оставляем только для старых элементов */
+  .wave, .glow, .line-group, .dot-pattern { display: none; }
+
+  /* ===== МОБИЛЬНЫЙ ФОН С КРУГАМИ ===== */
+  /* Красные круги на фоне для мобильной версии */
+  .hero-section::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 8s ease-in-out infinite;
+  }
+
+  .hero-section::after {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    left: -80px;
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.06) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 10s ease-in-out infinite reverse;
+  }
+
+  .services-section::before {
+    content: '';
+    position: absolute;
+    top: 20%;
+    right: -50px;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.07) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 7s ease-in-out infinite;
+  }
+
+  .services-section::after {
+    content: '';
+    position: absolute;
+    bottom: 10%;
+    left: -60px;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.05) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 9s ease-in-out infinite reverse;
+  }
+
+  .offers-section::before {
+    content: '';
+    position: absolute;
+    top: 30%;
+    right: -40px;
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.06) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 6s ease-in-out infinite;
+  }
+
+  .solutions-section::before {
+    content: '';
+    position: absolute;
+    top: 15%;
+    left: -30px;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.06) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 11s ease-in-out infinite;
+  }
+
+  .stats-section::before {
+    content: '';
+    position: absolute;
+    bottom: 20%;
+    right: -50px;
+    width: 160px;
+    height: 160px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.07) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 8s ease-in-out infinite reverse;
+  }
+
+  .prices-section::before {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: -40px;
+    width: 140px;
+    height: 140px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.06) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 7s ease-in-out infinite;
+  }
+
+  .calculator-section::before {
+    content: '';
+    position: absolute;
+    bottom: 30%;
+    right: -30px;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 5s ease-in-out infinite;
+  }
+
+  .managers-section::before {
+    content: '';
+    position: absolute;
+    top: 20%;
+    right: -20px;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.09) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 4s ease-in-out infinite;
+  }
+
+  .form-section::before {
+    content: '';
+    position: absolute;
+    bottom: 10%;
+    left: -20px;
+    width: 90px;
+    height: 90px;
+    background: radial-gradient(circle, rgba(204, 0, 0, 0.07) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatCircle 6s ease-in-out infinite reverse;
+  }
+
+  /* Анимация плавающих кругов */
+  @keyframes floatCircle {
+    0%, 100% {
+      transform: translate(0, 0) scale(1);
+    }
+    25% {
+      transform: translate(10px, -15px) scale(1.05);
+    }
+    50% {
+      transform: translate(-5px, 10px) scale(0.95);
+    }
+    75% {
+      transform: translate(15px, 5px) scale(1.02);
+    }
+  }
+}
+/* ============================================ */
+/* ===== МОБИЛЬНЫЙ ФОН С КРУГАМИ ДЛЯ 375px ===== */
+/* ============================================ */
+
+@media (max-width: 430px) {
+  /* Уменьшаем круги для маленьких экранов */
+  .hero-section::before {
+    width: 180px !important;
+    height: 180px !important;
+    top: -60px !important;
+    right: -60px !important;
+    opacity: 0.6;
+  }
+
+  .hero-section::after {
+    width: 150px !important;
+    height: 150px !important;
+    bottom: -50px !important;
+    left: -50px !important;
+    opacity: 0.5;
+  }
+
+  .services-section::before {
+    width: 120px !important;
+    height: 120px !important;
+    right: -30px !important;
+    opacity: 0.5;
+  }
+
+  .services-section::after {
+    width: 100px !important;
+    height: 100px !important;
+    left: -40px !important;
+    opacity: 0.4;
+  }
+
+  .offers-section::before {
+    width: 80px !important;
+    height: 80px !important;
+    right: -20px !important;
+    opacity: 0.5;
+  }
+
+  .solutions-section::before {
+    width: 130px !important;
+    height: 130px !important;
+    left: -20px !important;
+    opacity: 0.5;
+  }
+
+  .stats-section::before {
+    width: 100px !important;
+    height: 100px !important;
+    right: -30px !important;
+    opacity: 0.5;
+  }
+
+  .prices-section::before {
+    width: 90px !important;
+    height: 90px !important;
+    left: -20px !important;
+    opacity: 0.5;
+  }
+
+  .calculator-section::before {
+    width: 70px !important;
+    height: 70px !important;
+    right: -15px !important;
+    opacity: 0.6;
+  }
+
+  .managers-section::before {
+    width: 60px !important;
+    height: 60px !important;
+    right: -15px !important;
+    opacity: 0.6;
+  }
+
+  .form-section::before {
+    width: 65px !important;
+    height: 65px !important;
+    left: -15px !important;
+    opacity: 0.5;
+  }
+}
+@media (max-width: 430px) {
+  .hero-section {
+    background:
+        radial-gradient(circle at 85% 15%, rgba(204, 0, 0, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 15% 85%, rgba(204, 0, 0, 0.06) 0%, transparent 40%),
+        linear-gradient(135deg, #fef5f5 0%, #ffffff 50%, #fef0f0 100%) !important;
+  }
+
+  .services-section {
+    background:
+        radial-gradient(circle at 90% 30%, rgba(204, 0, 0, 0.06) 0%, transparent 35%),
+        radial-gradient(circle at 10% 80%, rgba(204, 0, 0, 0.04) 0%, transparent 35%),
+        #ffffff !important;
+  }
+
+  .offers-section {
+    background:
+        radial-gradient(circle at 85% 40%, rgba(204, 0, 0, 0.05) 0%, transparent 30%),
+        #f8f6f5 !important;
+  }
+
+  .solutions-section {
+    background:
+        radial-gradient(circle at 15% 30%, rgba(204, 0, 0, 0.05) 0%, transparent 35%),
+        #ffffff !important;
+  }
+
+  .stats-section {
+    background:
+        radial-gradient(circle at 85% 70%, rgba(204, 0, 0, 0.06) 0%, transparent 35%),
+        #f8f6f5 !important;
+  }
+
+  .prices-section {
+    background:
+        radial-gradient(circle at 15% 20%, rgba(204, 0, 0, 0.05) 0%, transparent 30%),
+        #ffffff !important;
+  }
+
+  .calculator-section {
+    background:
+        radial-gradient(circle at 85% 60%, rgba(204, 0, 0, 0.07) 0%, transparent 30%),
+        #f8f6f5 !important;
+  }
+
+  .managers-section {
+    background:
+        radial-gradient(circle at 85% 30%, rgba(204, 0, 0, 0.06) 0%, transparent 25%),
+        #ffffff !important;
+  }
+
+  .form-section {
+    background:
+        radial-gradient(circle at 15% 70%, rgba(204, 0, 0, 0.06) 0%, transparent 30%),
+        #f8f6f5 !important;
+  }
 }
 </style>
