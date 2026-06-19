@@ -26,6 +26,7 @@ const switchPage = (page) => {
   } else if (page === 'advantages') {
     currentComponent.value = AdvantagesPage
   }
+  window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
 provide('switchPage', switchPage)
@@ -43,39 +44,31 @@ body {
   overflow-x: hidden;
   background: #ffffff;
   color: #1a1a1a;
-  transition: background 0.3s ease, color 0.3s ease;
 }
 
-@media (prefers-color-scheme: dark) {
-  body {
-    background: #0a0a0a;
-    color: #f0f0f0;
-  }
+.glass-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(204, 0, 0, 0.1);
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s;
 }
 
-/* Глобальные стили для тёмной темы */
-@media (prefers-color-scheme: dark) {
-  .glass-card {
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.06) !important;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3) !important;
-  }
-  .glass-card:hover {
-    box-shadow: 0 20px 50px rgba(204, 0, 0, 0.15) !important;
-    border-color: rgba(204, 0, 0, 0.3) !important;
-  }
-
-  .section-title {
-    color: #f0f0f0 !important;
-  }
-
-  .section-desc {
-    color: #aaaaaa !important;
-  }
-
-  .section-tag {
-    color: #cc0000 !important;
-  }
+.glass-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 50px rgba(204, 0, 0, 0.1);
 }
 
+.section-title {
+  color: #1a1a1a;
+}
+
+.section-desc {
+  color: #888;
+}
+
+.section-tag {
+  color: #cc0000;
+}
 </style>

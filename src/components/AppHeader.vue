@@ -62,7 +62,7 @@
 </template>
 
 <script setup>
-import {ref, inject} from 'vue'
+import { ref, inject } from 'vue'
 
 defineProps({
   menuOpen: Boolean
@@ -74,7 +74,7 @@ const selectedCity = ref('Нижний Новгород')
 const switchPage = inject('switchPage')
 
 const headerInfo = [
-  {days: 'ПН', hours: '09 - 21', label: 'Заказать сайт', phone: '+79056611860', phoneFormatted: '+7 (905) 661-18-60'},
+  { days: 'ПН', hours: '09 - 21', label: 'Заказать сайт', phone: '+79056611860', phoneFormatted: '+7 (905) 661-18-60' },
   {
     days: 'ПН-ЧТ',
     hours: '09 - 18',
@@ -91,31 +91,29 @@ const headerInfo = [
   }
 ]
 
-// Функция перехода на главную страницу
 const goToHomePage = () => {
   switchPage('home')
-  window.scrollTo({top: 0, behavior: 'smooth'})
+  window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
-// Функции переключения страниц
 const goToSeoPage = () => {
   switchPage('seo')
-  window.scrollTo({top: 0, behavior: 'smooth'})
+  window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
 const goToContextPage = () => {
   switchPage('context')
-  window.scrollTo({top: 0, behavior: 'smooth'})
+  window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
 const goToSmmPage = () => {
   switchPage('smm')
-  window.scrollTo({top: 0, behavior: 'smooth'})
+  window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
 const goToAdvantagesPage = () => {
   switchPage('advantages')
-  window.scrollTo({top: 0, behavior: 'smooth'})
+  window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 </script>
 
@@ -127,67 +125,6 @@ const goToAdvantagesPage = () => {
   background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(204, 0, 0, 0.2);
-}
-
-@media (prefers-color-scheme: dark) {
-  .header {
-    background: rgba(10, 10, 10, 0.98);
-    border-bottom-color: rgba(204, 0, 0, 0.3);
-  }
-
-  .header-top {
-    border-bottom-color: rgba(255, 255, 255, 0.05);
-  }
-
-  .clock p {
-    color: #aaaaaa;
-  }
-
-  .contact-info .label {
-    color: #888888;
-  }
-
-  .contact-info a {
-    color: #e0e0e0;
-  }
-
-  .contact-info a:hover {
-    color: #cc0000;
-  }
-
-  .city-select .label {
-    color: #888888;
-  }
-
-  .city-select select {
-    background: #1a1a1a;
-    border-color: #333;
-    color: #e0e0e0;
-  }
-
-  .logo-text span:first-child {
-    color: #888888;
-  }
-
-  .logo-text .name {
-    color: #f0f0f0;
-  }
-
-  .desktop-nav a {
-    color: #cccccc;
-  }
-
-  .desktop-nav a:hover {
-    color: #cc0000;
-  }
-
-  .about-link {
-    color: #cccccc;
-  }
-
-  .about-link:hover {
-    color: #cc0000;
-  }
 }
 
 .header-top {
@@ -342,7 +279,6 @@ const goToAdvantagesPage = () => {
   color: #000000;
 }
 
-/* ДЕСКТОПНАЯ НАВИГАЦИЯ */
 .desktop-nav {
   display: flex;
   gap: 25px;
@@ -489,87 +425,33 @@ const goToAdvantagesPage = () => {
 }
 
 @keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
 
-/* АДАПТИВНЫЕ СТИЛИ */
 @media (max-width: 1200px) {
-  .header-top {
-    padding: 12px 20px;
-  }
-
-  .header-bottom {
-    padding: 15px 20px;
-  }
-
-  .info-block {
-    min-width: 170px;
-  }
-
-  .contact-info a {
-    font-size: 14px;
-  }
-
-  .first-phone {
-    font-size: 15px !important;
-  }
-
-  .desktop-nav {
-    gap: 15px;
-  }
-
-  .desktop-nav a {
-    font-size: 13px;
-  }
+  .header-top { padding: 12px 20px; }
+  .header-bottom { padding: 15px 20px; }
+  .info-block { min-width: 170px; }
+  .contact-info a { font-size: 14px; }
+  .first-phone { font-size: 15px !important; }
+  .desktop-nav { gap: 15px; }
+  .desktop-nav a { font-size: 13px; }
 }
 
 @media (max-width: 992px) {
-  .header-top-inner {
-    justify-content: center;
-  }
-
-  .info-block {
-    flex: 1 1 auto;
-    min-width: 150px;
-  }
-
-  .city-select {
-    flex: 1 1 100%;
-    justify-content: center;
-  }
-
-  .desktop-nav {
-    gap: 12px;
-  }
-
-  .desktop-nav a {
-    font-size: 12px;
-  }
+  .header-top-inner { justify-content: center; }
+  .info-block { flex: 1 1 auto; min-width: 150px; }
+  .city-select { flex: 1 1 100%; justify-content: center; }
+  .desktop-nav { gap: 12px; }
+  .desktop-nav a { font-size: 12px; }
 }
 
 @media (max-width: 768px) {
-  .header-top {
-    padding: 10px 15px;
-  }
-
-  .header-bottom {
-    padding: 12px 15px;
-  }
-
-  .header-top-inner {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-  }
-
+  .header-top { padding: 10px 15px; }
+  .header-bottom { padding: 12px 15px; }
+  .header-top-inner { flex-direction: column; align-items: stretch; gap: 10px; }
   .info-block {
     flex: 1 1 auto;
     min-width: 100%;
@@ -577,121 +459,33 @@ const goToAdvantagesPage = () => {
     padding: 8px 0;
     border-bottom: 1px solid #f0f0f0;
   }
-
-  .info-block:last-of-type {
-    border-bottom: none;
-  }
-
-  .contact-info a {
-    font-size: 14px;
-  }
-
-  .city-select {
-    flex: 1 1 100%;
-    justify-content: flex-start;
-    padding-top: 5px;
-  }
-
-  .desktop-nav {
-    display: none;
-  }
-
-  .burger-menu {
-    display: block;
-  }
-
-  .nav {
-    gap: 12px;
-  }
-
-  .neon-btn {
-    padding: 8px 14px;
-    font-size: 13px;
-  }
-
-  .about-link {
-    font-size: 13px;
-  }
-
-  .logo-text .name {
-    font-size: 16px;
-  }
-
-  .logo-icon img {
-    width: 32px;
-    height: 32px;
-  }
-
-  .first-phone {
-    font-size: 15px !important;
-  }
+  .info-block:last-of-type { border-bottom: none; }
+  .contact-info a { font-size: 14px; }
+  .city-select { flex: 1 1 100%; justify-content: flex-start; padding-top: 5px; }
+  .desktop-nav { display: none; }
+  .burger-menu { display: block; }
+  .nav { gap: 12px; }
+  .neon-btn { padding: 8px 14px; font-size: 13px; }
+  .about-link { font-size: 13px; }
+  .logo-text .name { font-size: 16px; }
+  .logo-icon img { width: 32px; height: 32px; }
+  .first-phone { font-size: 15px !important; }
 }
 
 @media (max-width: 480px) {
-  .header-top {
-    padding: 8px 10px;
-  }
-
-  .header-bottom {
-    padding: 10px 10px;
-  }
-
-  .info-block {
-    gap: 10px;
-    padding: 6px 0;
-  }
-
-  .clock p {
-    font-size: 11px;
-  }
-
-  .contact-info .label {
-    font-size: 10px;
-  }
-
-  .contact-info a {
-    font-size: 13px;
-  }
-
-  .neon-btn {
-    padding: 6px 12px;
-    font-size: 12px;
-  }
-
-  .about-link {
-    font-size: 12px;
-  }
-
-  .logo-text span:first-child {
-    font-size: 8px;
-  }
-
-  .logo-text .name {
-    font-size: 14px;
-  }
-
-  .logo-icon img {
-    width: 28px;
-    height: 28px;
-  }
-
-  .city-select select {
-    font-size: 12px;
-    padding: 4px 8px;
-  }
-
-  .first-phone {
-    font-size: 14px !important;
-  }
-
-  .nav {
-    gap: 8px;
-  }
-}
-
-@media (prefers-color-scheme: dark) and (max-width: 768px) {
-  .info-block {
-    border-bottom-color: rgba(255, 255, 255, 0.05);
-  }
+  .header-top { padding: 8px 10px; }
+  .header-bottom { padding: 10px 10px; }
+  .info-block { gap: 10px; padding: 6px 0; }
+  .clock p { font-size: 11px; }
+  .contact-info .label { font-size: 10px; }
+  .contact-info a { font-size: 13px; }
+  .neon-btn { padding: 6px 12px; font-size: 12px; }
+  .about-link { font-size: 12px; }
+  .logo-text span:first-child { font-size: 8px; }
+  .logo-text .name { font-size: 14px; }
+  .logo-icon img { width: 28px; height: 28px; }
+  .city-select select { font-size: 12px; padding: 4px 8px; }
+  .first-phone { font-size: 14px !important; }
+  .nav { gap: 8px; }
 }
 </style>
