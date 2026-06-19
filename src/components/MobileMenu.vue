@@ -170,32 +170,6 @@ watch(() => props.menuOpen, (isOpen) => {
   overflow-y: auto;
 }
 
-@media (prefers-color-scheme: dark) {
-  .mobile-menu {
-    background: #0d0d0d;
-  }
-  .mobile-menu-title {
-    color: #cc0000 !important;
-  }
-  .mobile-menu-section a {
-    color: #cccccc !important;
-  }
-  .mobile-menu-section a:hover {
-    color: #cc0000 !important;
-  }
-  .mobile-menu-logo span {
-    color: #f0f0f0 !important;
-  }
-  .mobile-phone,
-  .mobile-email {
-    color: #cccccc !important;
-  }
-  .mobile-phone:hover,
-  .mobile-email:hover {
-    color: #cc0000 !important;
-  }
-}
-
 .mobile-menu.open {
   left: 0;
 }
@@ -218,13 +192,6 @@ watch(() => props.menuOpen, (isOpen) => {
   z-index: 10;
 }
 
-@media (prefers-color-scheme: dark) {
-  .mobile-menu-close {
-    background: #1a1a1a;
-    color: #e0e0e0;
-  }
-}
-
 .mobile-menu-close:hover {
   background: #cc0000;
   color: white;
@@ -242,12 +209,6 @@ watch(() => props.menuOpen, (isOpen) => {
   margin-bottom: 30px;
   padding-bottom: 20px;
   border-bottom: 1px solid #eee;
-}
-
-@media (prefers-color-scheme: dark) {
-  .mobile-menu-logo {
-    border-bottom-color: rgba(255, 255, 255, 0.05);
-  }
 }
 
 .mobile-menu-logo img {
@@ -299,4 +260,38 @@ watch(() => props.menuOpen, (isOpen) => {
   gap: 10px;
 }
 
+.mobile-phone {
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+  text-decoration: none;
+}
+
+.mobile-email {
+  font-size: 14px;
+  color: #666;
+  text-decoration: none;
+}
+
+.mobile-phone:hover,
+.mobile-email:hover {
+  color: #cc0000;
+}
+
+@media (max-width: 480px) {
+  .mobile-menu {
+    width: 85%;
+    max-width: 320px;
+  }
+  .mobile-menu-inner {
+    padding: 70px 20px 30px;
+  }
+  .mobile-menu-close {
+    top: 15px;
+    right: 15px;
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
+  }
+}
 </style>
