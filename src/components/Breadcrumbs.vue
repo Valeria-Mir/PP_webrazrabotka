@@ -35,16 +35,5 @@ defineProps({
 .breadcrumbs span:last-child {
   color: #666;
 }
-/* ===== ТЕМНАЯ ТЕМА ===== */
-.site-full.dark-mode .breadcrumbs {
-  background: rgba(255, 255, 255, 0.03);
-}
 
-.site-full.dark-mode .breadcrumbs span:last-child {
-  color: #aaaaaa;
-}
-
-.site-full.dark-mode .breadcrumbs .separator {
-  color: #666;
-}
 </style>
