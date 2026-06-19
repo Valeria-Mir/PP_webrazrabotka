@@ -2671,4 +2671,83 @@ onUnmounted(() => { if (starInterval) clearInterval(starInterval) })
   .metric-value { font-size: 22px; }
   .metric-label { font-size: 9px; letter-spacing: 0.3px; }
 }
+/* ============================================ */
+/* ===== УМЕНЬШЕННАЯ ИКОНКА РЕКЛАМЫ В СЕКЦИИ "РЕШЕНИЯ" ===== */
+/* ============================================ */
+
+/* Иконка Реклама (3-й элемент) - делаем меньше */
+.solution-item:nth-child(3) .solution-icon img {
+  width: 36px !important;
+  height: 36px !important;
+}
+
+.solution-item:nth-child(3) .solution-icon {
+  width: 43px;
+  height: 43px;
+}
+
+/* Остальные иконки остаются стандартного размера */
+.solution-icon img {
+  width: 52px !important;
+  height: 52px !important;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.solution-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 10px;
+}
+
+.solution-item:hover .solution-icon img {
+  transform: scale(1.1);
+}
+
+/* ============================================ */
+/* ===== АДАПТИВ ДЛЯ МОБИЛЬНЫХ ===== */
+/* ============================================ */
+
+@media (max-width: 768px) {
+  .solution-icon img {
+    width: 54px !important;
+    height: 44px !important;
+  }
+  .solution-icon {
+    width: 44px;
+    height: 44px;
+  }
+  /* Уменьшенная иконка рекламы на планшетах */
+  .solution-item:nth-child(3) .solution-icon img {
+    width: 43px !important;
+    height: 43px !important;
+  }
+  .solution-item:nth-child(3) .solution-icon {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .solution-icon img {
+    width: 58px !important;
+    height: 58px !important;
+  }
+  .solution-icon {
+    width: 58px;
+    height: 58px;
+  }
+  /* Уменьшенная иконка рекламы на телефонах */
+  .solution-item:nth-child(3) .solution-icon img {
+    width: 35px !important;
+    height: 35px !important;
+  }
+  .solution-item:nth-child(3) .solution-icon {
+    width: 28px;
+    height: 28px;
+  }
+}
 </style>
