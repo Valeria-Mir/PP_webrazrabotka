@@ -305,39 +305,4 @@ watch(() => props.menuOpen, (isOpen) => {
   }
 }
 
-.mobile-phone {
-  font-size: 18px;
-  font-weight: bold;
-  color: #000;
-  text-decoration: none;
-}
-
-.mobile-email {
-  font-size: 14px;
-  color: #666;
-  text-decoration: none;
-}
-
-.mobile-phone:hover,
-.mobile-email:hover {
-  color: #cc0000;
-}
-
-@media (max-width: 480px) {
-  .mobile-menu {
-    width: 85%;
-    max-width: 320px;
-  }
-  .mobile-menu-inner {
-    padding: 70px 20px 30px;
-  }
-  .mobile-menu-close {
-    top: 15px;
-    right: 15px;
-    width: 35px;
-    height: 35px;
-    font-size: 20px;
-  }
-}
-
 </style>
