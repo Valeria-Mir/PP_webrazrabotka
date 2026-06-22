@@ -871,21 +871,42 @@ onUnmounted(() => {
   margin: 10px 0;
 }
 
+/* ===== ЧЕКБОКС СОГЛАСИЯ (ИСПРАВЛЕННЫЙ) ===== */
 .checkbox-label {
   display: flex;
   align-items: flex-start;
   gap: 10px;
   margin: 20px 0;
   cursor: pointer;
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.checkbox-label input[type="checkbox"] {
+  flex-shrink: 0;
+  margin-top: 3px;
+  width: 16px;
+  height: 16px;
 }
 
 .checkbox-label span {
+  flex: 1;
+  min-width: 0;
   font-size: 12px;
+  line-height: 1.5;
   color: #666;
-  line-height: 1.4;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
 }
 
 .checkbox-label a {
+  display: inline;
+  white-space: normal;
+  word-break: break-word;
   color: #cc0000;
   text-decoration: underline;
 }
@@ -898,6 +919,12 @@ onUnmounted(() => {
   color: #ff0000;
 }
 
+.form-group.has-error .checkbox-label input[type="checkbox"] {
+  outline: 2px solid #ff0000;
+  outline-offset: 2px;
+}
+
+/* ===== КНОПКА ОТПРАВКИ ===== */
 .submit-btn {
   width: 100%;
   padding: 14px;
@@ -959,7 +986,7 @@ onUnmounted(() => {
   margin: 10px 0;
 }
 
-/* Адаптив */
+/* ===== АДАПТИВ ДЛЯ МОБИЛЬНЫХ ===== */
 @media (max-width: 768px) {
   .smm-hero {
     flex-direction: column;
@@ -985,8 +1012,22 @@ onUnmounted(() => {
   .form-group {
     min-width: 100%;
   }
+
+  .form-block form {
+    max-width: 100%;
+    padding: 0 5px;
+  }
+
+  .checkbox-label {
+    gap: 8px;
+  }
+
+  .checkbox-label span {
+    font-size: 11px;
+  }
 }
 
+/* ===== ЗВЕЗДЫ (ДЕКОРАТИВНЫЙ ЭЛЕМЕНТ) ===== */
 .star {
   position: fixed;
   width: 2px;
@@ -1005,6 +1046,7 @@ onUnmounted(() => {
   100% { opacity: 0; }
 }
 
+/* ===== ВИДЕО В HERO ===== */
 .hero-image {
   flex: 1;
   min-width: 280px;
@@ -1034,13 +1076,8 @@ onUnmounted(() => {
 .hero-text {
   flex: 1;
 }
+
 .header {
   position: relative !important;
-}
-
-/* Стили для чекбокса при ошибке */
-.form-group.has-error .checkbox-label input[type="checkbox"] {
-  outline: 2px solid #ff0000;
-  outline-offset: 2px;
 }
 </style>
